@@ -251,6 +251,7 @@
       align-items:center;
     }
     .hotbar-container > div{
+      position:relative;
       width:60px;
       height:60px;
       padding:5px;
@@ -260,10 +261,14 @@
       border:5px solid /*#ee2f45*/#222;
       backdrop-filter:blur(3px);
       text-align:right;
-      vertical-align:top;
       border-radius:.5vw;
     }
-    
+    .b-r{
+      color:#eeeeee;
+      position:absolute;
+      bottom:0;
+      right:0;
+    }
   </style>
   <script type="module" crossorigin src="../assets/helloWorld.3318bd85.js"></script>
   <link rel="modulepreload" crossorigin href="../assets/babylon.39bd9ef3.js">
@@ -280,16 +285,16 @@
     <div id="debug-speed">Speed: Loading...</div>
   </div>
   <div class="hotbar-container">
-    <div id="item0">1</div>
-    <div id="item1">2</div>
-    <div id="item2">3</div>
-    <div id="item3">4</div>
-    <div id="item4">5</div>
-    <div id="item5">6</div>
-    <div id="item6">7</div>
-    <div id="item7">8</div>
-    <div id="item8">9</div>
-    <div id="item9">0</div>
+    <div id="item0"><p class="b-r">1</p></div>
+    <div id="item1"><p class="b-r">2</p></div>
+    <div id="item2"><p class="b-r">3</p></div>
+    <div id="item3"><p class="b-r">4</p></div>
+    <div id="item4"><p class="b-r">5</p></div>
+    <div id="item5"><p class="b-r">6</p></div>
+    <div id="item6"><p class="b-r">7</p></div>
+    <div id="item7"><p class="b-r">8</p></div>
+    <div id="item8"><p class="b-r">9</p></div>
+    <div id="item9"><p class="b-r">0</p></div>
   </div>
 </body>
 
