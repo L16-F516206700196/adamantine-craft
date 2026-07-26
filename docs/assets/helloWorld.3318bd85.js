@@ -530,7 +530,7 @@ const playBlockSound=blockID=>{
 	if(sounds.stone.includes(blockID)){playAudio(`../hello-world/sounds/stone${Math.ceil(Math.random()*6)}.mp3`)}
 	if(sounds.wood.includes(blockID)){playAudio(`../hello-world/sounds/wood${Math.ceil(Math.random()*6)}.mp3`)}
 }
-nameToDisplayNameOverrides={
+var nameToDisplayNameOverrides={
 	"grass_block_full":"Grass Block (Full)",
 	"leaves_oak_apple":"Oak Leaves With Apple",
 	"log_oak_stripped":"Oak Log (Stripped)",
@@ -538,7 +538,7 @@ nameToDisplayNameOverrides={
 	
 }
 
-nameToDisplayName=n=>{
+const nameToDisplayName=n=>{
 	if(n in nameToDisplayNameOverrides)return nameToDisplayNameOverrides[n];
 	return n.toUpperCase().replaceAll(/ /g,"");
 }
