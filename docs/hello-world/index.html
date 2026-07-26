@@ -157,7 +157,7 @@
       overflow: hidden;
       font-variant-ligatures: normal;
       font-family: 'JetBrains Mono';
-      font-size: min(0.67vw,0.8rem);
+      font-size: 12px;
       font-weight:400;
     }
 
@@ -250,6 +250,20 @@
       z-index: 99;
       align-items:center;
     }
+    .item-container{
+   	  width:48px;
+      height:48px;
+    }
+    .item-container img{
+      width:48px;
+      height:48px;
+      position:relative;
+      left:6px;
+      top:6px;
+      object-fit:cover;
+      image-rendering:pixelated;
+    }
+	
     .hotbar-container > div{
       position:relative;
       width:60px;
@@ -262,11 +276,16 @@
       backdrop-filter:blur(3px);
       text-align:right;
       border-radius:.5vw;
+      transition:transform 0.35s;
+      align-items:center;
+    }
+    .hotbar-container > div:hover{
+    	transform:scale(1.05);
     }
     .b-r{
       color:#eeeeee;
       position:absolute;
-      bottom:0;
+      bottom:-10px;
       right:0;
     }
   </style>
@@ -285,16 +304,66 @@
     <div id="debug-speed">Speed: Loading...</div>
   </div>
   <div class="hotbar-container">
-    <div id="item0"><img src="../hello-world/textures/adamantine_ore.png" /><p class="b-r">1</p></div>
-    <div id="item1"><img src="../hello-world/textures/adamantine_ore.png" /><p class="b-r">2</p></div>
-    <div id="item2"><img src="../hello-world/textures/adamantine_ore.png" /><p class="b-r">3</p></div>
-    <div id="item3"><img src="../hello-world/textures/adamantine_ore.png" /><p class="b-r">4</p></div>
-    <div id="item4"><img src="../hello-world/textures/adamantine_ore.png" /><p class="b-r">5</p></div>
-    <div id="item5"><img src="../hello-world/textures/adamantine_ore.png" /><p class="b-r">6</p></div>
-    <div id="item6"><img src="../hello-world/textures/adamantine_ore.png" /><p class="b-r">7</p></div>
-    <div id="item7"><img src="../hello-world/textures/adamantine_ore.png" /><p class="b-r">8</p></div>
-    <div id="item8"><img src="../hello-world/textures/adamantine_ore.png" /><p class="b-r">9</p></div>
-    <div id="item9"><img src="../hello-world/textures/adamantine_ore.png" /><p class="b-r">0</p></div>
+    <div id="item0">
+      <div class="item-container">
+        <img src="../hello-world/textures/air.png" class="imgitem"/>
+      </div>
+      <p class="b-r">1</p>
+    </div>
+    <div id="item1">
+      <div class="item-container">
+        <img src="../hello-world/textures/air.png" class="imgitem"/>
+      </div>
+      <p class="b-r">2</p>
+    </div>
+    <div id="item2">
+      <div class="item-container">
+        <img src="../hello-world/textures/air.png" class="imgitem"/>
+      </div>
+      <p class="b-r">3</p>
+    </div>
+    <div id="item3">
+      <div class="item-container">
+        <img src="../hello-world/textures/air.png" class="imgitem"/>
+      </div>
+      <p class="b-r">4</p>
+    </div>
+    <div id="item4">
+      <div class="item-container">
+        <img src="../hello-world/textures/air.png" class="imgitem"/>
+      </div>
+      <p class="b-r">5</p>
+    </div>
+    <div id="item5">
+      <div class="item-container">
+        <img src="../hello-world/textures/air.png" class="imgitem"/>
+      </div>
+      <p class="b-r">6</p>
+    </div>
+    <div id="item6">
+      <div class="item-container">
+        <img src="../hello-world/textures/air.png" class="imgitem"/>
+      </div>
+      <p class="b-r">7</p>
+    </div>
+    <div id="item7">
+      <div class="item-container">
+        <img src="../hello-world/textures/air.png" class="imgitem"/>
+      </div>
+      <p class="b-r">8</p>
+    </div>
+    <div id="item8">
+      <div class="item-container">
+        <img src="../hello-world/textures/air.png" class="imgitem"/>
+      </div>
+      <p class="b-r">9</p>
+    </div>
+    <div id="item9">
+      <div class="item-container">
+        <img src="../hello-world/textures/air.png" class="imgitem"/>
+      </div>
+      <p class="b-r">0</p>
+    </div>
   </div>
 </body>
 
