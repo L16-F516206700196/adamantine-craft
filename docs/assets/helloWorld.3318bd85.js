@@ -623,14 +623,14 @@ background-color:/#f25058aa/#555a;
 */
 const resetSlotOutline=z=>{
 	for(let j=0;j<10;j++){
-		let itemCSS=document.getElementById(`item`+j).style;
+		let itemCSS=document.getElementById(`item`+((j+1)%10)).style;
 		itemCSS["background-color"]="#555a";
 		itemCSS["color"]="#eee";
 		itemCSS["border-color"]="#222";
 	}
 }
 const visualSSlot=z=>{
-	let itemCSS=document.getElementById(`item`+z).style;
+	let itemCSS=document.getElementById(`item`+((z+1)%10)).style;
 	itemCSS["background-color"]="#f25058aa";
 	itemCSS["border-color"]="#ee2f45";
 }
@@ -750,7 +750,7 @@ noa.on('tick', function (dt) {
 	
 	var scroll = noa.inputs.pointerState.scrolly
 	if (scroll !== 0) {
-		selectedHotbarSlotI=(Math.round(selectedHotbarSlotI+(scroll/360)))%10;
+		selectedHotbarSlotI=(Math.round(selectedHotbarSlotI+(scroll/720)))%10;
 		if(selectedHotbarSlotI<0)selectedHotbarSlotI=9;
 		console.log(`selected hotbar slot is ${selectedHotbarSlotI}, scroll is ${scroll}`)
 		if(altKey){
