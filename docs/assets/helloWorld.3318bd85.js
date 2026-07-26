@@ -163,6 +163,8 @@ const shouldBeCaveAir = (x, y, z) => {
  * 
 */
 
+
+
 const setBlockRect=(x1,y1,z1,x2,y2,z2,b)=>{
 	let X=1+(Math.max(x2,x1)-Math.min(x2,x1)),
 		Y=1+(Math.max(y2,y1)-Math.min(y2,y1)),
@@ -201,7 +203,8 @@ let qBRequiresUnder=[
 
 ]
 // block materials
-
+let stack256=[
+];
 let isOre=[
 	6,
 	7,
@@ -613,6 +616,10 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 	noa.world.setChunkData(id, data)
 });
 let altKey=!1;
+var playerInventory=[
+	{name:"Dirt",amount:1,attributes:{},}
+]
+let selectedHotbarSlotI=0;
 var g=e.playerEntity,m=e.entities.getPositionData(g),fm=noa.entities.getPhysicsBody(g),d=m.width,f=m.height,z=e.rendering.getScene(),a=D("player-mesh",{},z);var move = e.entities.getMovement(g);
 move.maxSpeed = 7.2;move.running=!0;move.jumpImpulse=(84/11);move.moveForce = 60;move.jumpTime=0;move.airJumps=0;
 fm.airDrag=0.1;
@@ -722,9 +729,12 @@ noa.on('tick', function (dt) {
 		}
 	}
 	var scroll = noa.inputs.pointerState.scrolly
-	if (scroll !== 0&&altKey) {
-		noa.camera.zoomDistance += (scroll > 0) ? 1 : -1
-		if (noa.camera.zoomDistance < 0) noa.camera.zoomDistance = 0
-		if (noa.camera.zoomDistance > 10) noa.camera.zoomDistance = 10
+	if (scroll !== 0) {
+		selectedHotbarSlotI=(selectedHotbarSlotI+scroll)%10;
+		if(altKey){
+			noa.camera.zoomDistance += (scroll > 0) ? 1 : -1
+			if (noa.camera.zoomDistance < 0) noa.camera.zoomDistance = 0
+			if (noa.camera.zoomDistance > 10) noa.camera.zoomDistance = 10
+		}
 	}
 })
