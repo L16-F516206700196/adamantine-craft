@@ -678,6 +678,7 @@ const giveItem=(i,a)=>{
 	for(let c=0;c<playerInventory.length;c++){
 		if(playerInventory[c].name!==i)continue;
 		if(a-given<=0)break;
+		let ogAmt=playerInventory[c].amount;
 		let isEmpty=Object.keys(playerInventory[c]).length<=0;
 		let slotID=checkSlotsForCItem(i,a);
 		let amtLeft=a-given,amtToGive=amtLeft;
@@ -685,7 +686,7 @@ const giveItem=(i,a)=>{
 		if(isEmpty){let amtToGive=Math.min(256,a-given);playerInventory[c]={name:i,amount:amtToGive,attributes:{}};given+=amtToGive;continue;}		
 		
 		if(amtCanFill-amtToGive<0)amtToGive=amtCanFill;
-		playerInventory[c].amount+=amtToGive;
+		playerInventory[c]={name:i,amount:amtToGive+ogAmt,attributes:{}};
 		given+=amtToGive;
 	}
 	return a-given;
