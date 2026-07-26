@@ -760,6 +760,7 @@ noa.on('tick', function (dt) {
 		}
 	}
 	while(accScroll>500){
+		accScroll-=500;
 		selectedHotbarSlotI++;
 		selectedHotbarSlotI=selectedHotbarSlotI%10;
 		if(selectedHotbarSlotI<0)selectedHotbarSlotI=9;
