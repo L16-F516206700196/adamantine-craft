@@ -671,6 +671,25 @@ var playerInventory=[
 	{},
 	{},
 ]
+checkSlotsForCItem=(i,a)=>playerInventory.findIndex(j=>i?.name===j&&i?.amount<256);
+getSlotsForCItem=(i,a)=>playerInventory.filter(j=>i?.name===j&&i?.amount<256);
+giveItem=(i,a)=>{
+	let given=0;
+	for(let c=0;c<playerInventory.length;c++){
+		if(playerInventory[c].name!==i)continue;
+		if(a-given<=0)break;
+		let isEmpty=Object.keys(playerInventory[c]).length<=0;
+		let slotID=checkSlotsForCItem(i,a);
+		let amtLeft=a-given,amtToGive=amtLeft;
+		let fah=b[c],amtCanFill=256-fah.amount;
+		if(isEmpty){let amtToGive=Math.min(256,a-given);playerInventory[c]={name:i,amount:amtToGive,attributes:{}};given+=amtToGive;continue;}		
+		
+		if(amtCanFill-amtToGive<0)amtToGive=amtCanFill;
+		playerInventory[c].amount+=amtToGive;
+		given+=amtToGive;
+	}
+	return a-given;
+}
 let selectedHotbarSlotI=0;
 let accScroll=0;
 let holdFire=!1;
@@ -749,6 +768,23 @@ noa.inputs.down.on("log-physics-body",()=>{
 noa.inputs.bind("toggle-check-place","KeyQ");
 noa.inputs.down.on("toggle-check-place",()=>{
 	toggleCheck=!toggleCheck;
+})
+noa.inputs.bind("test1","KeyG");
+noa.inputs.down.on("test1",()=>{
+	giveItem("Dirt",256);
+	console.log(playerInventory);
+})
+
+noa.inputs.bind("test2","KeyH");
+noa.inputs.down.on("test2",()=>{
+	giveItem("Dirt",9999);
+	console.log(playerInventory);
+})
+
+noa.inputs.bind("test3","KeyY");
+noa.inputs.down.on("test3",()=>{
+	giveItem("Dirt",3);
+	console.log(playerInventory);
 })
 // each tick, consume any scroll events and use them to zoom camera
 noa.on('tick', function (dt) {
