@@ -612,7 +612,7 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 	// tell noa the chunk's terrain data is now set
 	noa.world.setChunkData(id, data)
 });
-
+let altKey=!1;
 var g=e.playerEntity,m=e.entities.getPositionData(g),fm=noa.entities.getPhysicsBody(g),d=m.width,f=m.height,z=e.rendering.getScene(),a=D("player-mesh",{},z);var move = e.entities.getMovement(g);
 move.maxSpeed = 7.2;move.running=!0;move.jumpImpulse=(84/11);move.moveForce = 60;move.jumpTime=0;move.airJumps=0;
 fm.airDrag=0.1;
@@ -638,6 +638,15 @@ noa.inputs.down.on('mid-fire', function () {
 	}
 })
 noa.inputs.bind('mid-fire', 'KeyK')
+
+noa.inputs.bind('zoom-out-on', 'KeyX')
+noa.inputs.down.on('zoom-out-on', function () {
+	altKey=!0;
+})
+
+noa.inputs.up.on('zoom-out-on', function () {
+	altKey=!1;
+})
 
 noa.inputs.down.on('alt-fire', function () {
 	if (noa.targetedBlock) {
@@ -713,7 +722,7 @@ noa.on('tick', function (dt) {
 		}
 	}
 	var scroll = noa.inputs.pointerState.scrolly
-	if (scroll !== 0) {
+	if (scroll !== 0&&altKey) {
 		noa.camera.zoomDistance += (scroll > 0) ? 1 : -1
 		if (noa.camera.zoomDistance < 0) noa.camera.zoomDistance = 0
 		if (noa.camera.zoomDistance > 10) noa.camera.zoomDistance = 10
