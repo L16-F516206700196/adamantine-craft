@@ -747,16 +747,17 @@ noa.on('tick', function (dt) {
 			qBRequiresUnder.splice(0,1);
 		}
 	}
+	
 	var scroll = noa.inputs.pointerState.scrolly
 	if (scroll !== 0) {
 		selectedHotbarSlotI=(selectedHotbarSlotI+scroll)%10;
 		console.log(`selected hotbar slot is ${selectedHotbarSlotI}`)
-		resetSlotOutline();
-		visualSSlot(selectedHotbarSlotI);
 		if(altKey){
 			noa.camera.zoomDistance += (scroll > 0) ? 1 : -1
 			if (noa.camera.zoomDistance < 0) noa.camera.zoomDistance = 0
 			if (noa.camera.zoomDistance > 10) noa.camera.zoomDistance = 10
 		}
 	}
+	resetSlotOutline();
+	visualSSlot(selectedHotbarSlotI);
 })
