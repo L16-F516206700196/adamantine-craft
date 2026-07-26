@@ -530,7 +530,18 @@ const playBlockSound=blockID=>{
 	if(sounds.stone.includes(blockID)){playAudio(`../hello-world/sounds/stone${Math.ceil(Math.random()*6)}.mp3`)}
 	if(sounds.wood.includes(blockID)){playAudio(`../hello-world/sounds/wood${Math.ceil(Math.random()*6)}.mp3`)}
 }
+nameToDisplayNameOverrides={
+	"grass_block_full":"Grass Block (Full)",
+	"leaves_oak_apple":"Oak Leaves With Apple",
+	"log_oak_stripped":"Oak Log (Stripped)",
+	"grass_block_half":"Grass Block (Half"
+	
+}
 
+nameToDisplayName=n=>{
+	if(n in nameToDisplayNameOverrides)return nameToDisplayNameOverrides[n];
+	return n.toUpperCase().replaceAll(/ /g,"");
+}
 //noa.registry.registerMaterial(blockID, opts)
 
 
@@ -649,7 +660,7 @@ var itemI=[
 	["item9","item-c9","imgitem9"],
 ];
 var playerInventory=[
-	{name:"Dirt",amount:1,attributes:{}},
+	{name:"dirt",amount:1,attributes:{}},
 	{},
 	{},
 	{},
