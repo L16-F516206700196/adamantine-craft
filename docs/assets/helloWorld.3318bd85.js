@@ -639,6 +639,7 @@ var playerInventory=[
 	{name:"Dirt",amount:1,attributes:{},}
 ]
 let selectedHotbarSlotI=0;
+let accScroll=0;
 var g=e.playerEntity,m=e.entities.getPositionData(g),fm=noa.entities.getPhysicsBody(g),d=m.width,f=m.height,z=e.rendering.getScene(),a=D("player-mesh",{},z);var move = e.entities.getMovement(g);
 move.maxSpeed = 7.2;move.running=!0;move.jumpImpulse=(84/11);move.moveForce = 60;move.jumpTime=0;move.airJumps=0;
 fm.airDrag=0.1;
@@ -750,15 +751,20 @@ noa.on('tick', function (dt) {
 	
 	var scroll = noa.inputs.pointerState.scrolly
 	if (scroll !== 0) {
-		selectedHotbarSlotI=(Math.round(selectedHotbarSlotI+(scroll/720)))%10;
-		if(selectedHotbarSlotI<0)selectedHotbarSlotI=9;
-		console.log(`selected hotbar slot is ${selectedHotbarSlotI}, scroll is ${scroll}`)
+		accScroll+=scroll;
+		
 		if(altKey){
 			noa.camera.zoomDistance += (scroll > 0) ? 1 : -1
 			if (noa.camera.zoomDistance < 0) noa.camera.zoomDistance = 0
 			if (noa.camera.zoomDistance > 10) noa.camera.zoomDistance = 10
 		}
 	}
+	while(accScroll>500){
+		selectedHotbarSlotI++;
+		selectedHotbarSlotI=selectedHotbarSlotI%10;
+		if(selectedHotbarSlotI<0)selectedHotbarSlotI=9;
+	}
+	console.log(`selected hotbar slot is ${selectedHotbarSlotI}, scroll is ${scroll}`)
 	resetSlotOutline();
 	visualSSlot(selectedHotbarSlotI);
 })
