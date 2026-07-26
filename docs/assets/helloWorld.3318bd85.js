@@ -751,6 +751,7 @@ noa.on('tick', function (dt) {
 	var scroll = noa.inputs.pointerState.scrolly
 	if (scroll !== 0) {
 		selectedHotbarSlotI=(selectedHotbarSlotI+((scroll > 0) ? 1 : -1))%10;
+		if(selectedHotbarSlotI<0)selectedHotbarSlotI=9;
 		console.log(`selected hotbar slot is ${selectedHotbarSlotI}, scroll is ${scroll}`)
 		if(altKey){
 			noa.camera.zoomDistance += (scroll > 0) ? 1 : -1
