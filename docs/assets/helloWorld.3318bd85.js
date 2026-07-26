@@ -750,6 +750,7 @@ noa.on('tick', function (dt) {
 	var scroll = noa.inputs.pointerState.scrolly
 	if (scroll !== 0) {
 		selectedHotbarSlotI=(selectedHotbarSlotI+scroll)%10;
+		console.log(`selected hotbar slot is ${selectedHotbarSlotI}`)
 		resetSlotOutline();
 		visualSSlot(selectedHotbarSlotI);
 		if(altKey){
