@@ -636,8 +636,29 @@ const visualSSlot=z=>{
 	itemCSS["border-color"]="#ee2f45";
 }
 let altKey=!1;
+var itemI=[
+	"item1",
+	"item2",
+	"item3",
+	"item4",
+	"item5",
+	"item6",
+	"item7",
+	"item8",
+	"item9",
+	"item0",
+];
 var playerInventory=[
-	{name:"Dirt",amount:1,attributes:{},}
+	{name:"Dirt",amount:1,attributes:{}},
+	{},
+	{},
+	{},
+	{},
+	{},
+	{},
+	{},
+	{},
+	{},
 ]
 let selectedHotbarSlotI=0;
 let accScroll=0;
@@ -768,6 +789,10 @@ noa.on('tick', function (dt) {
 		selectedHotbarSlotI=selectedHotbarSlotI%10;
 		if(selectedHotbarSlotI<0)selectedHotbarSlotI=9;
 	}*/
+	for(let i=0;i<itemI.length;i++){
+		let j=itemI[i];
+		document.getElementById(j).src=`../hello-world/textures/${playerInventory[i]?.name||"air"}.png`
+	}
 	console.log(`selected hotbar slot is ${selectedHotbarSlotI}, scroll is ${scroll}`)
 	resetSlotOutline();
 	visualSSlot(selectedHotbarSlotI);
