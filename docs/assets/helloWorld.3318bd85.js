@@ -673,6 +673,12 @@ var playerInventory=[
 ]
 let selectedHotbarSlotI=0;
 let accScroll=0;
+let holdFire=!1;
+let holdAltFire=!1;
+let lastFire=performance.now();
+let lastAltFire=performance.now();
+let lastSFire=performance.now();
+let lastSAltFire=performance.now();
 var g=e.playerEntity,m=e.entities.getPositionData(g),fm=noa.entities.getPhysicsBody(g),d=m.width,f=m.height,z=e.rendering.getScene(),a=D("player-mesh",{},z);var move = e.entities.getMovement(g);
 move.maxSpeed = 7.2;move.running=!0;move.jumpImpulse=(84/11);move.moveForce = 60;move.jumpTime=0;move.airJumps=0;
 fm.airDrag=0.1;
@@ -681,12 +687,12 @@ a.scaling.x=d;a.scaling.z=d;a.scaling.y=f;
 a.material=e.rendering.makeStandardMaterial();e.entities.addComponent(g,e.entities.names.mesh,{mesh:a,offset:[0,f/2,0]});
 
 noa.inputs.down.on('fire', function () {
-	if (noa.targetedBlock) {
-		var pos = noa.targetedBlock.position
-		var targetedBlockID=noa.targetedBlock.blockID;
-		playBlockSound(targetedBlockID);
-		noa.setBlock(0, pos[0], pos[1], pos[2])
-	}
+	lastFire=performance.now();
+	
+	holdFire=!0;
+})
+noa.inputs.up.on("fire",()=>{
+	holdFire=!1;
 })
 noa.inputs.bind('fire', 'KeyJ')
 var pickedID=1;
@@ -709,19 +715,15 @@ noa.inputs.up.on('zoom-out-on', function () {
 })
 
 noa.inputs.down.on('alt-fire', function () {
-	if (noa.targetedBlock) {
-		var pos = noa.targetedBlock.adjacent
-		
-		if(toggleCheck){
-			if(!noa.entities.isTerrainBlocked(pos[0], pos[1], pos[2])){
-				playBlockSound(pickedID);
-			}
-		}else{
-			playBlockSound(pickedID);
-		}
-		noa[toggleCheck?"addBlock":"setBlock"](pickedID, pos[0], pos[1], pos[2]);
-		
-	}
+	lastAltFire=performance.now();
+	
+	holdAltFire=!0;
+	
+})
+
+noa.inputs.up.on("alt-fire",()=>{
+	holdAltFire=!1;
+	
 })
 
 // add a key binding for "E" to do the same as alt-fire
@@ -804,6 +806,39 @@ noa.on('tick', function (dt) {
 		let j=itemI[i];
 		document.getElementById(j[2]).src=`../hello-world/textures/${playerInventory[i]?.name||"air"}.png`
 	}
+	if(holdFire){
+		let fireCooldown=250-Math.min((performance.now()-lastFire)/10,200);
+		if(performance.now()-lastSFire>fireCooldown){
+			if (noa.targetedBlock) {
+				var pos = noa.targetedBlock.position
+				var targetedBlockID=noa.targetedBlock.blockID;
+				playBlockSound(targetedBlockID);
+				noa.setBlock(0, pos[0], pos[1], pos[2])
+			}
+			lastSFire=performance.now();
+		}
+	}
+	if(holdAltFire){
+		let altFireCooldown=250-Math.min((performance.now()-lastAltFire)/10,200);
+		if(performance.now()-lastSAltFire>altFireCooldown){
+			if (noa.targetedBlock) {
+				var pos = noa.targetedBlock.adjacent
+				
+				if(toggleCheck){
+					if(!noa.entities.isTerrainBlocked(pos[0], pos[1], pos[2])){
+						playBlockSound(pickedID);
+					}
+				}else{
+					playBlockSound(pickedID);
+				}
+				noa[toggleCheck?"addBlock":"setBlock"](pickedID, pos[0], pos[1], pos[2]);
+				
+			}
+			lastSAltFire=performance.now();
+			
+		}
+	}
+	
 	console.log(`selected hotbar slot is ${selectedHotbarSlotI}, scroll is ${scroll}`)
 	resetSlotOutline();
 	visualSSlot(selectedHotbarSlotI);
