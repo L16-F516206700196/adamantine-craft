@@ -671,9 +671,9 @@ var playerInventory=[
 	{},
 	{},
 ]
-checkSlotsForCItem=(i,a)=>playerInventory.findIndex(j=>i?.name===j&&i?.amount<256);
-getSlotsForCItem=(i,a)=>playerInventory.filter(j=>i?.name===j&&i?.amount<256);
-giveItem=(i,a)=>{
+const checkSlotsForCItem=(i,a)=>playerInventory.findIndex(j=>i?.name===j&&i?.amount<256);
+const getSlotsForCItem=(i,a)=>playerInventory.filter(j=>i?.name===j&&i?.amount<256);
+const giveItem=(i,a)=>{
 	let given=0;
 	for(let c=0;c<playerInventory.length;c++){
 		if(playerInventory[c].name!==i)continue;
