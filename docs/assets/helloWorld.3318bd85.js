@@ -659,7 +659,7 @@ var itemI=[
 	["item8","item-c8","imgitem8"],
 	["item9","item-c9","imgitem9"],
 ];
-var playerInventory=[
+let playerInventory=[
 	{name:"dirt",amount:1,attributes:{}},
 	{},
 	{},
@@ -691,7 +691,7 @@ const giveItem=(i,a)=>{
 		given+=amtToGive;
 	}
 	playerInventory=pC;
-	return a-given;
+	return pC;
 }
 let selectedHotbarSlotI=0;
 let accScroll=0;
@@ -774,19 +774,19 @@ noa.inputs.down.on("toggle-check-place",()=>{
 })
 noa.inputs.bind("test1","KeyG");
 noa.inputs.down.on("test1",()=>{
-	giveItem("Dirt",256);
+	playerInventory=giveItem("Dirt",256);
 	console.log(playerInventory);
 })
 
 noa.inputs.bind("test2","KeyH");
 noa.inputs.down.on("test2",()=>{
-	giveItem("Dirt",9999);
+	playerInventory=giveItem("Dirt",9999);
 	console.log(playerInventory);
 })
 
 noa.inputs.bind("test3","KeyY");
 noa.inputs.down.on("test3",()=>{
-	giveItem("Dirt",3);
+	playerInventory=giveItem("Dirt",3);
 	console.log(playerInventory);
 })
 // each tick, consume any scroll events and use them to zoom camera
