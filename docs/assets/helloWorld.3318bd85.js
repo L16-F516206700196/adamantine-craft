@@ -751,22 +751,22 @@ noa.on('tick', function (dt) {
 	
 	var scroll = noa.inputs.pointerState.scrolly
 	if (scroll !== 0) {
-		//selectedHotbarSlotI=(selectedHotbarSlotI+((scroll > 0) ? 1 : -1))%10;
-		accScroll+=scroll;
-		//if(selectedHotbarSlotI<0)selectedHotbarSlotI=9;
+		selectedHotbarSlotI=(selectedHotbarSlotI+((scroll > 0) ? 1 : -1))%10;
+		/*accScroll+=scroll;*/
+		if(selectedHotbarSlotI<0)selectedHotbarSlotI=9;
 		if(altKey){
 			noa.camera.zoomDistance += (scroll > 0) ? 1 : -1
 			if (noa.camera.zoomDistance < 0) noa.camera.zoomDistance = 0
 			if (noa.camera.zoomDistance > 10) noa.camera.zoomDistance = 10
 		}
 	}
-	
+	/*
 	while(accScroll>200){
 		accScroll-=200;
 		selectedHotbarSlotI++;
 		selectedHotbarSlotI=selectedHotbarSlotI%10;
 		if(selectedHotbarSlotI<0)selectedHotbarSlotI=9;
-	}
+	}*/
 	console.log(`selected hotbar slot is ${selectedHotbarSlotI}, scroll is ${scroll}`)
 	resetSlotOutline();
 	visualSSlot(selectedHotbarSlotI);
