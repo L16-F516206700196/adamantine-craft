@@ -637,16 +637,16 @@ const visualSSlot=z=>{
 }
 let altKey=!1;
 var itemI=[
-	["item0","item-c0"],
-	["item1","item-c1"],
-	["item2","item-c2"],
-	["item3","item-c3"],
-	["item4","item-c4"],
-	["item5","item-c5"],
-	["item6","item-c6"],
-	["item7","item-c7"],
-	["item8","item-c8"],
-	["item9","item-c9"],
+	["item0","item-c0","imgitem0"],
+	["item1","item-c1","imgitem1"],
+	["item2","item-c2","imgitem2"],
+	["item3","item-c3","imgitem3"],
+	["item4","item-c4","imgitem4"],
+	["item5","item-c5","imgitem5"],
+	["item6","item-c6","imgitem6"],
+	["item7","item-c7","imgitem7"],
+	["item8","item-c8","imgitem8"],
+	["item9","item-c9","imgitem9"],
 ];
 var playerInventory=[
 	{name:"Dirt",amount:1,attributes:{}},
@@ -791,7 +791,7 @@ noa.on('tick', function (dt) {
 	}*/
 	for(let i=0;i<itemI.length;i++){
 		let j=itemI[i];
-		document.getElementById(j[1]).src=`../hello-world/textures/${playerInventory[i]?.name||"air"}.png`
+		document.getElementById(j[2]).src=`../hello-world/textures/${playerInventory[i]?.name||"air"}.png`
 	}
 	console.log(`selected hotbar slot is ${selectedHotbarSlotI}, scroll is ${scroll}`)
 	resetSlotOutline();
