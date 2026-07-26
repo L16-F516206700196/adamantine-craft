@@ -534,7 +534,7 @@ var nameToDisplayNameOverrides={
 	"grass_block_full":"Grass Block (Full)",
 	"leaves_oak_apple":"Oak Leaves With Apple",
 	"log_oak_stripped":"Oak Log (Stripped)",
-	"grass_block_half":"Grass Block (Half"
+	"grass_block_half":"Grass Block (Half)"
 	
 }
 
@@ -675,20 +675,22 @@ const checkSlotsForCItem=(i,a)=>playerInventory.findIndex(j=>i?.name===j&&i?.amo
 const getSlotsForCItem=(i,a)=>playerInventory.filter(j=>i?.name===j&&i?.amount<256);
 const giveItem=(i,a)=>{
 	let given=0;
-	for(let c=0;c<playerInventory.length;c++){
-		if(playerInventory[c].name!==i)continue;
+	let pC=playerInventory;
+	for(let c=0;c<pC.length;c++){
+		if(pC[c].name!==i)continue;
 		if(a-given<=0)break;
-		let ogAmt=playerInventory[c].amount;
-		let isEmpty=Object.keys(playerInventory[c]).length<=0;
+		let ogAmt=pC[c].amount;
+		let isEmpty=Object.keys(pC[c]).length<=0;
 		let slotID=checkSlotsForCItem(i,a);
 		let amtLeft=a-given,amtToGive=amtLeft;
 		let fah=b[c],amtCanFill=256-fah.amount;
-		if(isEmpty){let amtToGive=Math.min(256,a-given);playerInventory[c]={name:i,amount:amtToGive,attributes:{}};given+=amtToGive;continue;}		
+		if(isEmpty){let amtToGive=Math.min(256,a-given);pC[c]={name:i,amount:amtToGive,attributes:{}};given+=amtToGive;continue;}		
 		
 		if(amtCanFill-amtToGive<0)amtToGive=amtCanFill;
-		playerInventory[c]={name:i,amount:amtToGive+ogAmt,attributes:{}};
+		pC[c]={name:i,amount:amtToGive+ogAmt,attributes:{}};
 		given+=amtToGive;
 	}
+	playerInventory=pC;
 	return a-given;
 }
 let selectedHotbarSlotI=0;
