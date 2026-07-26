@@ -1,3 +1,4 @@
+//left off at line 639, work on player inven tmrw :)
 import{E as Engine}from"./index.2b3d1184.js";import{C as D}from"./babylon.39bd9ef3.js";
 var opts = {
 	debug: true,
