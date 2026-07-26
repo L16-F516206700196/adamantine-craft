@@ -615,6 +615,25 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 	// tell noa the chunk's terrain data is now set
 	noa.world.setChunkData(id, data)
 });
+
+/*
+background-color:/#f25058aa/#555a;
+      color:#eeeeee;
+      border:5px solid /#ee2f45/#222;
+*/
+const resetSlotOutline=z=>{
+	for(let j=0;j<10;j++){
+		let itemCSS=document.getElementById(`item`+j).style;
+		itemCSS["background-color"]="#555a";
+		itemCSS["color"]="#eee";
+		itemCSS["border-color"]="#222";
+	}
+}
+const visualSSlot=z=>{
+	let itemCSS=document.getElementById(`item`+z).style;
+	itemCSS["background-color"]="#f25058aa";
+	itemCSS["border-color"]="#ee2f45";
+}
 let altKey=!1;
 var playerInventory=[
 	{name:"Dirt",amount:1,attributes:{},}
@@ -731,6 +750,8 @@ noa.on('tick', function (dt) {
 	var scroll = noa.inputs.pointerState.scrolly
 	if (scroll !== 0) {
 		selectedHotbarSlotI=(selectedHotbarSlotI+scroll)%10;
+		resetSlotOutline();
+		visualSSlot(selectedHotbarSlotI);
 		if(altKey){
 			noa.camera.zoomDistance += (scroll > 0) ? 1 : -1
 			if (noa.camera.zoomDistance < 0) noa.camera.zoomDistance = 0
