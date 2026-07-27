@@ -145,8 +145,8 @@ const evalPerlinWithFBM=(x,y,z)=>{
 	+(perlin3(k/ 1,l/ 1.5,m/ 1)*(caveHeightScaleDiv/caveHeightScale)/8);
 }
 
-const temperature=(x,z)=>perlin2(x/256,z/256,"temperature");
-const hillyness=(x,z)=>(perlin2(x/256,z/256,"hillyness")+1)/2;
+const temperature=(x,z)=>perlin(x/256,z/256,"temperature");
+const hillyness=(x,z)=>(perlin(x/256,z/256,"hillyness")+1)/2;
 
 const shouldBeCaveAir = (x, y, z) => {
 	const sx=1,sy=1,sz=1;
