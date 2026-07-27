@@ -96,40 +96,40 @@ for(let i=256;i>0;i--){
 }
 
 
-const angleGen = (x, y) => {
-	let hash=Math.abs(generateHash(`${x},${y}|${seedNum}`));
+const angleGen = (x, y,seed) => {
+	let hash=Math.abs(generateHash(`${x},${y}|${seed??""}${seedNum}`));
 	return gradientTable[hash & 7];
 }
 
-const angleGen3 = (x, y, z) => {
-	let hash=Math.abs(generateHash(`${x},${y},${z}|${seedNum}`));
+const angleGen3 = (x, y, z,seed) => {
+	let hash=Math.abs(generateHash(`${x},${y},${z}|${seed??""}${seedNum}`));
 	return gradientTable3[hash % 12];
 }
 
-const perlin = (x, y) => {
+const perlin = (x, y, seed) => {
 	
 	let x_0 = Math.floor(x), x_1 = x_0+1, y_0 = Math.floor(y), y_1 = y_0+1; 
 	let frx=x-x_0;
 	let fry=y-y_0;
 	let u = fade(frx), v = fade(fry); 
-	let s_00 = dot(angleGen(x_0,y_0),frx, fry), s_10 = dot(angleGen(x_1,y_0),frx-1, fry);
-	let s_01 = dot(angleGen(x_0,y_1),frx, fry-1), s_11 = dot(angleGen(x_1,y_1),frx-1, fry-1); 
+	let s_00 = dot(angleGen(x_0,y_0),frx, fry, seed??seedNum), s_10 = dot(angleGen(x_1,y_0),frx-1, fry, seed??seedNum);
+	let s_01 = dot(angleGen(x_0,y_1),frx, fry-1, seed??seedNum), s_11 = dot(angleGen(x_1,y_1),frx-1, fry-1, seed??seedNum); 
 	let lx0 = lerp(s_00,s_10,u), lx1 = lerp(s_01,s_11,u); 
 	let value = lerp(lx0,lx1,v);
 	return value;
 }
 
-const perlin3 = (x, y, z) => {
+const perlin3 = (x, y, z, seed) => {
 	
 	let x_0 = Math.floor(x), x_1 = x_0+1, y_0 = Math.floor(y), y_1 = y_0+1, z_0 = Math.floor(z), z_1 = z_0+1; 
 	let frx=x-x_0;
 	let fry=y-y_0;
 	let frz=z-z_0;
 	let u = fade(frx), v = fade(fry), w = fade(frz);
-	let s_000 = dot3(angleGen3(x_0,y_0,z_0),frx, fry, frz), s_100 = dot3(angleGen3(x_1,y_0,z_0),frx-1, fry, frz);
-	let s_010 = dot3(angleGen3(x_0,y_1,z_0),frx, fry-1, frz), s_110 = dot3(angleGen3(x_1,y_1,z_0),frx-1, fry-1, frz); 
-	let s_001 = dot3(angleGen3(x_0,y_0,z_1),frx, fry, frz-1), s_101 = dot3(angleGen3(x_1,y_0,z_1),frx-1, fry, frz-1);
-	let s_011 = dot3(angleGen3(x_0,y_1,z_1),frx, fry-1, frz-1), s_111 = dot3(angleGen3(x_1,y_1,z_1),frx-1, fry-1, frz-1); 
+	let s_000 = dot3(angleGen3(x_0,y_0,z_0),frx, fry, frz, seed??seedNum), s_100 = dot3(angleGen3(x_1,y_0,z_0),frx-1, fry, frz, seed??seedNum);
+	let s_010 = dot3(angleGen3(x_0,y_1,z_0),frx, fry-1, frz, seed??seedNum), s_110 = dot3(angleGen3(x_1,y_1,z_0),frx-1, fry-1, frz, seed??seedNum); 
+	let s_001 = dot3(angleGen3(x_0,y_0,z_1),frx, fry, frz-1, seed??seedNum), s_101 = dot3(angleGen3(x_1,y_0,z_1),frx-1, fry, frz-1, seed??seedNum);
+	let s_011 = dot3(angleGen3(x_0,y_1,z_1),frx, fry-1, frz-1, seed??seedNum), s_111 = dot3(angleGen3(x_1,y_1,z_1),frx-1, fry-1, frz-1, seed??seedNum); 
 	let lx0 = lerp(s_000,s_100,u), lx1 = lerp(s_010,s_110,u); 
 	let lx2 = lerp(s_001,s_101,u), lx3 = lerp(s_011,s_111,u); 
 	let ly0 = lerp(lx0,lx1,v), ly1 = lerp(lx2,lx3,v);
@@ -144,6 +144,10 @@ const evalPerlinWithFBM=(x,y,z)=>{
 	+(perlin3(k/ 3,l/ 4.5,m/ 3)*(caveHeightScaleDiv/caveHeightScale)/4)
 	+(perlin3(k/ 1,l/ 1.5,m/ 1)*(caveHeightScaleDiv/caveHeightScale)/8);
 }
+
+const temperature=(x,z)=>perlin2(x/256,z/256,"temperature");
+const hillyness=(x,z)=>(perlin2(x/256,z/256,"hillyness")+1)/2;
+
 const shouldBeCaveAir = (x, y, z) => {
 	const sx=1,sy=1,sz=1;
 	let cV=evalPerlinWithFBM(x*sx,y*sy,z*sz);
@@ -607,7 +611,8 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 			+(perlin(l/8,m/8)*(heightScaleDiv/heightScale)/(fbm**3))
 			+(perlin(l/16,m/16)*(heightScaleDiv/heightScale)/(fbm**4))
 			+(perlin(l/32,m/32)*(heightScaleDiv/heightScale)/(fbm**5))
-			+(perlin(l/64,m/64)*(heightScaleDiv/heightScale)/(fbm**6));
+			+(perlin(l/64,m/64)*(heightScaleDiv/heightScale)/(fbm**6))
+			+hillyness(l,m)**2;
 			for (var j = 0; j < data.shape[1]; j++) {
 				var voxelID = getVoxelID(x + i, y + j, z + k,height,data);
 				/*
