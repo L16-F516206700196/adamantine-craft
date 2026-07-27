@@ -712,7 +712,7 @@ let lastAltFire=performance.now();
 let lastSFire=performance.now();
 let lastSAltFire=performance.now();
 var g=e.playerEntity,m=e.entities.getPositionData(g),fm=noa.entities.getPhysicsBody(g),d=m.width,f=m.height,z=e.rendering.getScene(),a=D("player-mesh",{},z);var move = e.entities.getMovement(g);
-move.maxSpeed = 7.2;move.running=!0;move.jumpImpulse=70/9;move.jumpTime=0;move.airJumps=0;
+move.maxSpeed = 7.2;move.running=!0;move.jumpImpulse=640/81;move.jumpTime=0;move.airJumps=0;
 fm.friction=0.5;
 move.standingFriction=0.96;
 //move.runningFriction=0.99;
