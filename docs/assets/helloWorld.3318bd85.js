@@ -707,6 +707,7 @@ let selectedHotbarSlotI=0;
 let accScroll=0;
 let holdFire=!1;
 let holdAltFire=!1;
+let holdShift=!1;
 let lastFire=performance.now();
 let lastAltFire=performance.now();
 let lastSFire=performance.now();
@@ -799,6 +800,10 @@ noa.inputs.bind("test3","KeyY");
 noa.inputs.down.on("test3",()=>{
 	playerInventory=giveItem("Dirt",3);
 	console.log(playerInventory);
+})
+noa.inputs.bind("shift","Shift");
+noa.inputs.down.on("shift",()=>{
+	console.log("I'm holding shift!");
 })
 // each tick, consume any scroll events and use them to zoom camera
 noa.on('tick', function (dt) {
