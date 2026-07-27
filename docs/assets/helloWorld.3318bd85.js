@@ -18,9 +18,9 @@ var permutationTable=[];
 for(let i=0;i<256;i++){permutationTable.push(i)}
 //perlin by FWJ7 / L16_F51620, normalisation for angleGen3 by GPT 5.4 nano (idk trig lol)
 let seedNum = 0;
-let blockScale=48;
+let blockScale=32;
 let heightScaleDiv=32;
-let heightScale=1.75;
+let heightScale=8;
 let caveScale=32;
 let caveHeightScaleDiv=24;
 let caveHeightScale=3;
