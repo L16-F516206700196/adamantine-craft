@@ -590,7 +590,7 @@ function getVoxelID(x, y, z,height,data) {
 	
 	return 0 // signifying empty space
 }
-
+let fbm=1.5;
 // register for world events
 noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 	console.log(data.get(0,0,0))
@@ -602,11 +602,11 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 			let l=(x+i)/blockScale;
 			let m=(z+k)/blockScale;
 			let height=(perlin(l,m)*(heightScaleDiv/heightScale))
-			+(perlin(l/2,m/2)*(heightScaleDiv/heightScale)/2)
-			+(perlin(l/4,m/4)*(heightScaleDiv/heightScale)/4)
-			+(perlin(l/8,m/8)*(heightScaleDiv/heightScale)/8)
-			+(perlin(l/16,m/16)*(heightScaleDiv/heightScale)/4)
-			+(perlin(l/32,m/32)*(heightScaleDiv/heightScale)/2);
+			+(perlin(l/2,m/2)*(heightScaleDiv/heightScale)/1.5)
+			+(perlin(l/4,m/4)*(heightScaleDiv/heightScale)/(fbm**2))
+			+(perlin(l/8,m/8)*(heightScaleDiv/heightScale)/(fbm**3))
+			+(perlin(l/16,m/16)*(heightScaleDiv/heightScale)/(fbm**4))
+			+(perlin(l/32,m/32)*(heightScaleDiv/heightScale)/(fbm**5));
 			for (var j = 0; j < data.shape[1]; j++) {
 				var voxelID = getVoxelID(x + i, y + j, z + k,height,data);
 				/*
