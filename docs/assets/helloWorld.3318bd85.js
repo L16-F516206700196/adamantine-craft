@@ -18,8 +18,11 @@ var permutationTable=[];
 for(let i=0;i<256;i++){permutationTable.push(i)}
 //perlin by FWJ7 / L16_F51620, normalisation for angleGen3 by GPT 5.4 nano (idk trig lol)
 let seedNum = 0;
-let scale=128;
+let blockScale=128;
+let heightScaleDiv=32;
 let heightScale=1.75;
+let caveScale=32;
+let caveHeightScaleDiv=24;
 let caveHeightScale=3;
 const SQRT_HALF=0.70710678118654752;
 
@@ -135,11 +138,11 @@ const perlin3 = (x, y, z) => {
 }
 //perlin frequencies here may look off because normally you should multiply x/16,y/16 by a higher number. However, k and l, which are used, are actually x/scale and z/scale, so it's the opposite here. Sorry for the strange behaviour lol
 const evalPerlinWithFBM=(x,y,z)=>{
-	let k=x/scale,l=y/scale,m=z/scale;
-	return (perlin3(k/16,l/24,m/16)*(scale/caveHeightScale)/16)
-	+(perlin3(k/ 8,l/ 12,m/ 8)*(scale/caveHeightScale)/8)
-	+(perlin3(k/ 3,l/ 4.5,m/ 3)*(scale/caveHeightScale)/4)
-	+(perlin3(k/ 1,l/ 1.5,m/ 1)*(scale/caveHeightScale)/8);
+	let k=x/caveScale,l=y/caveScale,m=z/caveScale;
+	return (perlin3(k/16,l/24,m/16)*(caveScaleDiv/caveHeightScale)/16)
+	+(perlin3(k/ 8,l/ 12,m/ 8)*(caveScaleDiv/caveHeightScale)/8)
+	+(perlin3(k/ 3,l/ 4.5,m/ 3)*(caveScaleDiv/caveHeightScale)/4)
+	+(perlin3(k/ 1,l/ 1.5,m/ 1)*(caveScaleDiv/caveHeightScale)/8);
 }
 const shouldBeCaveAir = (x, y, z) => {
 	const sx=1,sy=1,sz=1;
@@ -147,8 +150,8 @@ const shouldBeCaveAir = (x, y, z) => {
 	cV+=9/8
 	cV/=9/4;
 	const t=smoothstep(caveThreshold-leniency,caveThreshold+leniency,cV)
-	let k=x/scale,l=y/scale,m=z/scale;
-	let tunnel=perlin3(k/12,l/12,m/12)*((scale/caveHeightScale)/8)
+	let k=x/caveScale,l=y/caveScale,m=z/caveScale;
+	let tunnel=perlin3(k/12,l/12,m/12)*((caveScaleDiv/caveHeightScale)/8)
 	tunnel+=11/32;
 	tunnel*=16/11
 	return t>0.5&&tunnel>0.12;
@@ -596,14 +599,14 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 	// `x, y, z` - world coords of the corner of the chunk
 	for (var i = 0; i < data.shape[0]; i++) {
 		for (var k = 0; k < data.shape[2]; k++) {
-			let l=(x+i)/scale;
-			let m=(z+k)/scale;
-			let height=(perlin(l,m)*(scale/heightScale))
-			+(perlin(l/2,m/2)*(scale/heightScale)/2)
-			+(perlin(l/4,m/4)*(scale/heightScale)/4)
-			+(perlin(l/8,m/8)*(scale/heightScale)/8)
-			+(perlin(l/16,m/16)*(scale/heightScale)/4)
-			+(perlin(l/32,m/32)*(scale/heightScale)/2);
+			let l=(x+i)/blockScale;
+			let m=(z+k)/blockScale;
+			let height=(perlin(l,m)*(heightScaleDiv/heightScale))
+			+(perlin(l/2,m/2)*(heightScaleDiv/heightScale)/2)
+			+(perlin(l/4,m/4)*(heightScaleDiv/heightScale)/4)
+			+(perlin(l/8,m/8)*(heightScaleDiv/heightScale)/8)
+			+(perlin(l/16,m/16)*(heightScaleDiv/heightScale)/4)
+			+(perlin(l/32,m/32)*(heightScaleDiv/heightScale)/2);
 			for (var j = 0; j < data.shape[1]; j++) {
 				var voxelID = getVoxelID(x + i, y + j, z + k,height,data);
 				/*
