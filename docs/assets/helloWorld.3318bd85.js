@@ -18,8 +18,8 @@ var permutationTable=[];
 for(let i=0;i<256;i++){permutationTable.push(i)}
 //perlin by FWJ7 / L16_F51620, normalisation for angleGen3 by GPT 5.4 nano (idk trig lol)
 let seedNum = 0;
-let scale=32;
-let heightScale=2;
+let scale=64;
+let heightScale=1.75;
 let caveHeightScale=3;
 const SQRT_HALF=0.70710678118654752;
 
@@ -603,7 +603,7 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 			+(perlin(l/4,m/4)*(scale/heightScale)/4)
 			+(perlin(l/8,m/8)*(scale/heightScale)/8)
 			+(perlin(l/16,m/16)*(scale/heightScale)/4)
-			+(perlin(l/32,m/32)*(scale/heightScale)/8);
+			+(perlin(l/32,m/32)*(scale/heightScale)/2);
 			for (var j = 0; j < data.shape[1]; j++) {
 				var voxelID = getVoxelID(x + i, y + j, z + k,height,data);
 				/*
