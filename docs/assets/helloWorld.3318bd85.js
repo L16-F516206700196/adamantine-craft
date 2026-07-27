@@ -813,7 +813,7 @@ noa.on('tick', function (dt) {
 	document.getElementById("debug-seed").innerHTML=`Seed ${seedNum}`;
 	document.getElementById("debug-coords").innerHTML=`${displayCoords}`;
 	document.getElementById("debug-vel").innerHTML=`${displayVel}`;
-	document.getElementById("debug-speed").innerHTML=`${speed} b/s`;
+	document.getElementById("debug-speed").innerHTML=`${Math.round(speed*1e4)/1e4} b/s`;
 	
 	if(queuedBlock.length>0){
 		for(let i=0;i<16;i++){
