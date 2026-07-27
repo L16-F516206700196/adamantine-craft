@@ -18,7 +18,7 @@ var permutationTable=[];
 for(let i=0;i<256;i++){permutationTable.push(i)}
 //perlin by FWJ7 / L16_F51620, normalisation for angleGen3 by GPT 5.4 nano (idk trig lol)
 let seedNum = 0;
-let scale=64;
+let scale=128;
 let heightScale=1.75;
 let caveHeightScale=3;
 const SQRT_HALF=0.70710678118654752;
@@ -560,7 +560,7 @@ const nameToDisplayName=n=>{
 
 // simple height map worldgen function
 function getVoxelID(x, y, z,height,data) {
-	let amount = Math.round(height);
+	let amount = Math.round(height+8);
 	let dx=x&15,dy=y&15,dz=z&15;
 	if (y < -864) return 0;
 	if (y === -864) return bedrockID;
