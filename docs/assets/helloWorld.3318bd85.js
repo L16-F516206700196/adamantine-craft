@@ -612,7 +612,7 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 			+(perlin(l/16,m/16)*(heightScaleDiv/heightScale)/(fbm**4))
 			+(perlin(l/32,m/32)*(heightScaleDiv/heightScale)/(fbm**5))
 			+(perlin(l/64,m/64)*(heightScaleDiv/heightScale)/(fbm**6))
-			+hillyness(l,m)**2;
+			+(32*(hillyness(l,m)**2));
 			for (var j = 0; j < data.shape[1]; j++) {
 				var voxelID = getVoxelID(x + i, y + j, z + k,height,data);
 				/*
