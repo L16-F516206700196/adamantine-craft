@@ -791,6 +791,8 @@ noa.inputs.bind("toggle-check-place","KeyQ");
 noa.inputs.down.on("toggle-check-place",()=>{
 	toggleCheck=!toggleCheck;
 })
+
+
 noa.inputs.bind("test1","KeyG");
 noa.inputs.down.on("test1",()=>{
 	playerInventory=giveItem("Dirt",256);
@@ -807,6 +809,11 @@ noa.inputs.bind("test3","KeyY");
 noa.inputs.down.on("test3",()=>{
 	playerInventory=giveItem("Dirt",3);
 	console.log(playerInventory);
+})
+
+noa.inputs.bind("mounts","KeyM");
+noa.inputs.down.on("mounts",()=>{
+	noa.entities.setPosition(g,-643,20,809);
 })
 noa.inputs.bind("shift","Shift");
 noa.inputs.down.on("shift",()=>{
