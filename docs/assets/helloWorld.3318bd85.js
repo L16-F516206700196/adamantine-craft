@@ -609,8 +609,8 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 			let heightMult=1;
 			if(getHilly>0.6){
 				heightMult=1+(160*(getHilly-0.6));
-				l/=1((getHilly-0.6)*3);
-				m/=1((getHilly-0.6)*3);
+				l/=1+((getHilly-0.6)*3);
+				m/=1+((getHilly-0.6)*3);
 					
 					
 			}
