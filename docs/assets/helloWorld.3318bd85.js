@@ -811,6 +811,11 @@ noa.inputs.bind("mounts","KeyM");
 noa.inputs.down.on("mounts",()=>{
 	noa.entities.setPosition(g,-643,20,809);
 })
+
+noa.inputs.bind("fling","KeyF");
+noa.inputs.down.on("fling",()=>{
+	fm.applyImpulse([0,15,0]);
+})
 noa.inputs.bind("shift","Shift");
 noa.inputs.down.on("shift",()=>{
 	console.log("I'm holding shift!");
