@@ -155,10 +155,10 @@ const shouldBeCaveAir = (x, y, z) => {
 	cV/=15/8;
 	const t=smoothstep(caveThreshold-leniency,caveThreshold+leniency,cV)
 	let k=x/caveScale,l=y/caveScale,m=z/caveScale;
-	let tunnel=perlin3(k/12,l/12,m/12)*((caveHeightScaleDiv/caveHeightScale)/4)
+	/*let tunnel=perlin3(k/12,l/12,m/12)*((caveHeightScaleDiv/caveHeightScale)/4)
 	tunnel+=11/32;
-	tunnel*=16/11
-	return t>0.7&&tunnel>0.12;
+	tunnel*=16/11*/
+	return t>0.7/*&&tunnel>0.12;*/
 }
 
 /*
