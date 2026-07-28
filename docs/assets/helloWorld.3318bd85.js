@@ -54,7 +54,7 @@ const gradientTable3=[
 	[-SQRT_HALF,0,SQRT_HALF,],
 	[-SQRT_HALF,0,-SQRT_HALF,],
 ];
-let caveThreshold = 0.70, leniency = 0.066;
+let caveThreshold = 0.77, leniency = 0.066;
 const dot = (a,b0,b1) => (a[0]*b0)+(a[1]*b1);
 const dot3 = (a,b0,b1,b2) => (a[0]*b0)+(a[1]*b1)+(a[2]*b2);
 const fade = x => 6*(x**5) - 15*(x**4) + 10*(x**3);
@@ -267,7 +267,7 @@ const genFunc=(x,y,z,oreS,genName)=>{
 			r2=sr2*(randomS(generateHash(`${x},${y},${z}|${seedNum}|${oreN}|${I}z`)))*Math.ceil(Math.sqrt(genInfo[4]));
 		if(isStone.includes(noa.getBlock(x+r1,y,z+r2)))queuedBlock.push([oreS,x+r1,y,z+r2]);
 	}
-	queuedBlock.push([oreS,x,y,z]);	
+	queuedBlock.push([(isStone.includes(noa.getBlock(x+r1,y,z+r2))?stoneS:0),x,y,z]);	
 }
 // l=Logs,f=Foliage,r=fRuit
 const treeGen=[
