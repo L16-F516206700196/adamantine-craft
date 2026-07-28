@@ -158,7 +158,7 @@ const shouldBeCaveAir = (x, y, z) => {
 	let tunnel=perlin3(k/12,l/12,m/12)*((caveHeightScaleDiv/caveHeightScale)/4)
 	tunnel+=11/32;
 	tunnel*=16/11
-	return t>0.5&&tunnel>0.12;
+	return t>0.7&&tunnel>0.12;
 }
 
 /*
