@@ -614,13 +614,13 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 					
 					
 			}
-			let height=((perlin(l,m)*(heightScaleDiv/heightScale))
-			+(perlin(l/2,m/2)*(heightScaleDiv/heightScale)/1.5)
-			+(perlin(l/4,m/4)*(heightScaleDiv/heightScale)/(fbm**2))
+			let height=((perlin(l/64,m/64)*(heightScaleDiv/heightScale))
+			+(perlin(l/32,m/32)*(heightScaleDiv/heightScale)/1.5)
+			+(perlin(l/16,m/16)*(heightScaleDiv/heightScale)/(fbm**2))
 			+(perlin(l/8,m/8)*(heightScaleDiv/heightScale)/(fbm**3))
-			+(perlin(l/16,m/16)*(heightScaleDiv/heightScale)/(fbm**4))
-			+(perlin(l/32,m/32)*(heightScaleDiv/heightScale)/(fbm**5))
-			+(perlin(l/64,m/64)*(heightScaleDiv/heightScale)/(fbm**6)))*heightMult;
+			+(perlin(l/4,m/4)*(heightScaleDiv/heightScale)/(fbm**4))
+			+(perlin(l/2,m/2)*(heightScaleDiv/heightScale)/(fbm**5))
+			+(perlin(l/1,m/1)*(heightScaleDiv/heightScale)/(fbm**6)))*heightMult;
 			for (var j = 0; j < data.shape[1]; j++) {
 				var voxelID = getVoxelID(x + i, y + j, z + k,height,data);
 				/*
