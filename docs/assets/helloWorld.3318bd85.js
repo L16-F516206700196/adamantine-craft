@@ -21,8 +21,8 @@ let seedNum = 0;
 let blockScale=8;
 let heightScaleDiv=128;
 let heightScale=8; //heightScaleDiv/heightScale
-let caveScale=32;
-let caveHeightScaleDiv=24;
+let caveScale=8;
+let caveHeightScaleDiv=16;
 let caveHeightScale=3;
 const SQRT_HALF=0.70710678118654752;
 
