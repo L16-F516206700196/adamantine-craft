@@ -139,8 +139,8 @@ const perlin3 = (x, y, z, seed) => {
 //perlin frequencies here may look off because normally you should multiply x/16,y/16 by a higher number. However, k and l, which are used, are actually x/scale and z/scale, so it's the opposite here. Sorry for the strange behaviour lol
 const evalPerlinWithFBM=(x,y,z)=>{
 	let k=x/caveScale,l=y/caveScale,m=z/caveScale;
-	return (perlin3(k/16,l/24,m/16)*(caveHeightScaleDiv/caveHeightScale)/16)
-	+(perlin3(k/ 8,l/ 12,m/ 8)*(caveHeightScaleDiv/caveHeightScale)/8)
+	return (perlin3(k/16,l/24,m/16)*(caveHeightScaleDiv/caveHeightScale)/1)
+	+(perlin3(k/ 8,l/ 12,m/ 8)*(caveHeightScaleDiv/caveHeightScale)/2)
 	+(perlin3(k/ 3,l/ 4.5,m/ 3)*(caveHeightScaleDiv/caveHeightScale)/4)
 	+(perlin3(k/ 1,l/ 1.5,m/ 1)*(caveHeightScaleDiv/caveHeightScale)/8);
 }
@@ -151,11 +151,11 @@ const hillyness=(x,z)=>(perlin(x/64,z/64,"hillyness")+0.5)
 const shouldBeCaveAir = (x, y, z) => {
 	const sx=1,sy=1,sz=1;
 	let cV=evalPerlinWithFBM(x*sx,y*sy,z*sz);
-	cV+=9/8
-	cV/=9/4;
+	cV+=15/16
+	cV/=15/8;
 	const t=smoothstep(caveThreshold-leniency,caveThreshold+leniency,cV)
 	let k=x/caveScale,l=y/caveScale,m=z/caveScale;
-	let tunnel=perlin3(k/12,l/12,m/12)*((caveHeightScaleDiv/caveHeightScale)/8)
+	let tunnel=perlin3(k/12,l/12,m/12)*((caveHeightScaleDiv/caveHeightScale)/4)
 	tunnel+=11/32;
 	tunnel*=16/11
 	return t>0.5&&tunnel>0.12;
