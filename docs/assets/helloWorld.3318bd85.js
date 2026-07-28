@@ -608,7 +608,7 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 			let getHilly=hillyness(l,m);
 			let heightMult=1;
 			if(getHilly>0.6){
-				heightMult=1+(160*(getHilly-0.6));
+				heightMult=1+(30*(getHilly-0.6));
 			}
 			let height=((perlin(l/64,m/64)*(heightScaleDiv/heightScale))
 			+(perlin(l/32,m/32)*(heightScaleDiv/heightScale)/1.5)
