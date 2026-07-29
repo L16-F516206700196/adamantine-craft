@@ -209,6 +209,9 @@ let queuedBlock=[
 let qBRequiresUnder=[
 
 ]
+queuedBlockConditional=[
+	
+]
 // block materials
 let stack256=[
 ];
@@ -266,7 +269,7 @@ const genFunc=(x,y,z,oreS,genName)=>{
 			r2=sr2*(randomS(generateHash(`${x},${y},${z}|${seedNum}|${oreN}|${I}z`)))*Math.ceil(Math.sqrt(genInfo[4]));
 		if(isStone.includes(noa.getBlock(x+r1,y,z+r2)))queuedBlock.push([oreS,x+r1,y,z+r2]);
 	}
-	queuedBlock.push([(isStone.includes(noa.getBlock(x,y,z))?oreS:0),x,y,z]);	
+	queuedBlockConditional.push([(x,y,z)=>isStone.includes(noa.getBlock(x,y,z)),oreS,0,[x,y,z]]);	
 }
 // l=Logs,f=Foliage,r=fRuit
 const treeGen=[
@@ -850,6 +853,15 @@ noa.on('tick', function (dt) {
 			let queuedBlock0=queuedBlock[0];
 			console.log(queuedBlock,queuedBlock0);
 			noa.setBlock(...queuedBlock0);
+			queuedBlock.splice(0,1);
+		}
+	}
+	if(queuedBlockConditional.length>0){
+		for(let i=0;i<128;i++){
+			if(queuedBlockConditional.length<1)return;
+			let qBC0=queuedBlockConditional[0];
+			console.log(queuedBlockConditional,"condition",qBC0);
+			noa.setBlock(qBC0[0](...qBC0[3])?qBC0[1]:qBC0[2],...qBC0[3]);
 			queuedBlock.splice(0,1);
 		}
 	}
