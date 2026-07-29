@@ -266,7 +266,7 @@ const genFunc=(x,y,z,oreS,genName)=>{
 			r2=sr2*(randomS(generateHash(`${x},${y},${z}|${seedNum}|${oreN}|${I}z`)))*Math.ceil(Math.sqrt(genInfo[4]));
 		if(isStone.includes(noa.getBlock(x+r1,y,z+r2)))queuedBlock.push([oreS,x+r1,y,z+r2]);
 	}
-	queuedBlock.push([(isStone.includes(noa.getBlock(x,y,z))?stoneS:0),x,y,z]);	
+	queuedBlock.push([(isStone.includes(noa.getBlock(x,y,z))?oreS:0),x,y,z]);	
 }
 // l=Logs,f=Foliage,r=fRuit
 const treeGen=[
