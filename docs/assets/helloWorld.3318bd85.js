@@ -845,7 +845,7 @@ noa.on('tick', function (dt) {
 	document.getElementById("debug-speed").innerHTML=`${Math.round(speed*1e4)/1e4} b/s`;
 	
 	if(queuedBlock.length>0){
-		for(let i=0;i<16;i++){
+		for(let i=0;i<128;i++){
 			if(queuedBlock.length<1)return;
 			let queuedBlock0=queuedBlock[0];
 			console.log(queuedBlock,queuedBlock0);
@@ -854,7 +854,7 @@ noa.on('tick', function (dt) {
 		}
 	}
 	if(qBRequiresUnder.length>0){
-		for(let i=0;i<16;i++){
+		for(let i=0;i<128;i++){
 			if(qBRequiresUnder.length<1)return;
 			let qBRequiresUnder0=qBRequiresUnder[0];
 			console.log(qBRequiresUnder,qBRequiresUnder0,noa.getBlock(qBRequiresUnder0[1],qBRequiresUnder0[2],qBRequiresUnder0[3]));
