@@ -500,7 +500,7 @@ let ID_TO_BLOCK=[
 ];
 // block types and their material names
 var dirtID = noa.registry.registerBlock(1, {material: 'dirt'})
-var grassFullID = noa.registry.registerBlock(2, {material: 'grass_block_top'})
+var grass_fullID = noa.registry.registerBlock(2, {material: 'grass_block_top'})
 var stoneID = noa.registry.registerBlock(3, {material: 'stone'})
 var depthstoneID = noa.registry.registerBlock(4, {material: 'depthstone'})
 var bedrockID = noa.registry.registerBlock(5, {material: 'bedrock'})
@@ -592,8 +592,8 @@ function getVoxelID(x, y, z,height,data) {
 	if (y < -192 + (generateHash(`${x},${y},${z}|${seedNum}|depthstone`)%3))return depthstoneID
 	if (y < amount-6) return y>144?snowID:stoneID;
 	if (y < amount-2) return y>144?snowID:y>112?stoneID:y>104?dirty_stoneID:dirtID
-	if (y < amount-1) return y>144?snowID:y>112?stoneID:grassHalfID
-	if (y < amount) return y>144?snowID:y>112?stoneID:grassFullID
+	if (y < amount-1) return y>144?snowID:y>112?stoneID:grass_halfID
+	if (y < amount) return y>144?snowID:y>112?stoneID:grass_fullID
 	if (y >= amount && y < -2){qBRequiresUnder.push([waterID,x,y,z])};
 	let treeX=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,x`))*8);
 	let treeZ=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`))*8);
