@@ -136,7 +136,6 @@ const perlin3 = (x, y, z, seed) => {
 	let value = lerp(ly0,ly1,w);
 	return value;
 }
-//perlin frequencies here may look off because normally you should multiply x/16,y/16 by a higher number. However, k and l, which are used, are actually x/scale and z/scale, so it's the opposite here. Sorry for the strange behaviour lol
 const evalPerlinWithFBM=(x,y,z)=>{
 	let k=x/caveScale,l=y/caveScale,m=z/caveScale;
 	return (perlin3(k/16,l/16,m/16)*(caveHeightScaleDiv/caveHeightScale)/1)
@@ -248,7 +247,7 @@ let gens={
 }
 
 const sounds={
-	gravel:[1,2],
+	gravel:[1,2,48,49,50],
 	stone:[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,39,40,41,42,43,44,45,46,47],
 	wood:[32,35,36],
 	foliage:[33,34,37,38],
@@ -351,6 +350,8 @@ noa.registry.registerMaterial('underworld_brick', {textureURL:"/underworld_brick
 noa.registry.registerMaterial('underworld_tiles', {textureURL:"/underworld_tiles.png"});
 noa.registry.registerMaterial('mini_underworld_bricks', {textureURL:"/mini_underworld_bricks.png"});
 noa.registry.registerMaterial('grass_block_side',{textureURL:"/grass_block_side.png"})
+noa.registry.registerMaterial('dirty_stone',{textureURL:"/dirty_stone.png"})
+noa.registry.registerMaterial('snow',{textureURL:"/snow.png"})
 //noa.registry.registerMaterial(name, {textureURL?: string, color?: number[]})
 const BLOCK_TO_ID={
 	"dirt":1,
@@ -474,6 +475,8 @@ const BLOCK_TO_ID={
 	"underworld_tiles":noa.registry.registerBlock(46, {material: 'underworld_tiles'}),
 	"mini_underworld_bricks":noa.registry.registerBlock(47, {material: 'mini_underworld_bricks'}),
 	"grass_block_half":48,
+    "dirty_stone":49,
+    "snow":50,
 };
 
 const BlockMD={
@@ -531,7 +534,11 @@ var sapling_oak_auto_genID = noa.registry.registerBlock(38, {
 		return treeGen[0](x,y,z,"sapling_oak",log_oakID,leaves_oakID,leaves_oak_appleID)
 	},
 });
+
 var grass_halfID = noa.registry.registerBlock(48, {material: ['grass_block_top','dirt','grass_block_side']});
+var dirty_stoneID = noa.registry.registerBlock(49, {material: 'dirty_stone'});
+var snowID = noa.registry.registerBlock(50, {material: 'snow'});
+
 const playBlockSound=blockID=>{
 	if(sounds.gravel.includes(blockID)){playAudio(`../hello-world/sounds/gravel${Math.ceil(Math.random()*6)}.mp3`)}
 	if(sounds.stone.includes(blockID)){playAudio(`../hello-world/sounds/stone${Math.ceil(Math.random()*6)}.mp3`)}
@@ -584,7 +591,7 @@ function getVoxelID(x, y, z,height,data) {
 	if (y < -480 + (generateHash(`${x},${y},${z}|${seedNum}|underworld_rock`)%3))return underworld_rockID;
 	if (y < -192 + (generateHash(`${x},${y},${z}|${seedNum}|depthstone`)%3))return depthstoneID
 	if (y < amount-5) return stoneID
-	if (y < amount-1) return dirtID
+	if (y < amount-1) return y>144?snowID:y>112?stoneID:y>104?dirty_stoneID:dirtID
 	
 	if (y < amount) return grassFullID
 	if (y >= amount && y < -2){qBRequiresUnder.push([waterID,x,y,z])};
@@ -608,7 +615,7 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 			let getHilly=hillyness(l,m);
 			let heightMult=1;
 			if(getHilly>0.6){
-				heightMult=1+(30*(getHilly-0.6));
+				heightMult=1+(20*(getHilly-0.6));
 			}
 			let height=((perlin(l/64,m/64)*(heightScaleDiv/heightScale))
 			+(perlin(l/32,m/32)*(heightScaleDiv/heightScale)/1.5)
