@@ -584,17 +584,17 @@ function getVoxelID(x, y, z,height,data) {
 			return BLOCK_TO_ID[I];
 		};
 	}
-	
+	let under=data.get(dx,dy-1,dz);
 	if (y < -480 + (generateHash(`${x},${y},${z}|${seedNum}|underworld_rock`)%3))return underworld_rockID;
 	if (y < -192 + (generateHash(`${x},${y},${z}|${seedNum}|depthstone`)%3))return depthstoneID
 	if (y < amount-6) return y>144?snowID:stoneID;
 	if (y < amount-2) return y>144?snowID:y>112?stoneID:y>104?dirty_stoneID:dirtID
-	if (y < amount-1) return y>144?snowID:y>112?stoneID:grass_halfID
-	if (y < amount) return y>144?snowID:y>112?stoneID:grass_fullID
-	if (y >= amount && y < -2){qBRequiresUnder.push([waterID,x,y,z])};
+	if (y < amount-1) return y>144?snowID:y>112?stoneID:y>=-3?grass_halfID:dirtID;
+	if (y < amount) return y>144?snowID:y>112?stoneID:y>=-3?grass_fullID:dirtID;
+	if (y >= amount && y < -3 &&under!==0 )return waterID;
 	let treeX=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,x`))*8);
 	let treeZ=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`))*8);
-	if(y<amount+1&&Math.floor(x/16)+treeX===x&&Math.floor(z/16)+treeZ===z&&data.get(dx,dy-1,dz)!==0)return sapling_oak_auto_genID;
+	if(y<amount+1&&Math.floor(x/16)+treeX===x&&Math.floor(z/16)+treeZ===z&&under!==0)return sapling_oak_auto_genID;
 	
 	 return 0;// signifying empty space
 }
