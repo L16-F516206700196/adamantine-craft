@@ -203,15 +203,7 @@ const playAudio = src => {
 	var audio = new Audio(src);
 	audio.play();
 }
-let queuedBlock=[
-
-]
-let qBRequiresUnder=[
-
-]
-queuedBlockConditional=[
-	
-]
+let queuedBlock=[],qBRequiresUnder=[],queuedBlockConditional=[]
 // block materials
 let stack256=[
 ];
