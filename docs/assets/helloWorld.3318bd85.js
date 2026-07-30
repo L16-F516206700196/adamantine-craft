@@ -591,6 +591,7 @@ function getVoxelID(x, y, z,height,data) {
 	if (y < amount-2) return y>144?snowID:y>112?stoneID:y>104?dirty_stoneID:dirtID
 	if (y < amount-1) return y>144?snowID:y>112?stoneID:y>=-3?grass_halfID:dirtID;
 	if (y < amount) return y>144?snowID:y>112?stoneID:y>=-3?grass_fullID:dirtID;
+	console.log("amount: ",amount);
 	if (y >= amount && y < -3 &&(under!==0||under===waterID) )return waterID;
 	let treeX=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,x`))*8);
 	let treeZ=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`))*8);
