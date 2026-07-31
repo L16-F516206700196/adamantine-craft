@@ -591,8 +591,7 @@ function getVoxelID(x, y, z,height,data) {
 	if (y < amount-2) return y>144?snowID:y>112?stoneID:y>104?dirty_stoneID:dirtID
 	if (y < amount-1) return y>144?snowID:y>112?stoneID:y>=-3?grass_halfID:dirtID;
 	if (y < amount) return y>144?snowID:y>112?stoneID:y>=-3?grass_fullID:dirtID;
-	console.log("amount: ",amount);
-	if (y >= amount && y < -3 &&(under!==0||under===waterID) )return waterID;
+	if (y >= amount && y < -3 &&(under!==0) )return waterID;
 	let treeX=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,x`))*8);
 	let treeZ=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`))*8);
 	if(y<amount+1&&Math.floor(x/16)+treeX===x&&Math.floor(z/16)+treeZ===z&&under!==0)return sapling_oak_auto_genID;
@@ -844,7 +843,6 @@ noa.on('tick', function (dt) {
 		for(let i=0;i<32;i++){
 			if(queuedBlock.length<1)return;
 			let queuedBlock0=queuedBlock[0];
-			console.log(queuedBlock,queuedBlock0);
 			noa.setBlock(...queuedBlock0);
 			queuedBlock.splice(0,1);
 		}
@@ -853,7 +851,6 @@ noa.on('tick', function (dt) {
 		for(let i=0;i<16;i++){
 			if(queuedBlockConditional.length<1)return;
 			let qBC0=queuedBlockConditional[0];
-			console.log(queuedBlockConditional,"condition",qBC0);
 			noa.setBlock(qBC0[0](...qBC0[3])?qBC0[1]:qBC0[2],...qBC0[3]);
 			queuedBlock.splice(0,1);
 		}
@@ -862,7 +859,6 @@ noa.on('tick', function (dt) {
 		for(let i=0;i<32;i++){
 			if(qBRequiresUnder.length<1)return;
 			let qBRequiresUnder0=qBRequiresUnder[0];
-			console.log(qBRequiresUnder,qBRequiresUnder0,noa.getBlock(qBRequiresUnder0[1],qBRequiresUnder0[2],qBRequiresUnder0[3]));
 			if(noa.getBlock(qBRequiresUnder0[1],qBRequiresUnder0[2],qBRequiresUnder0[3])!==0)noa.setBlock(...qBRequiresUnder0);
 			qBRequiresUnder.splice(0,1);
 		}
