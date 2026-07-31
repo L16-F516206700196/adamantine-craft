@@ -813,6 +813,7 @@ noa.inputs.down.on("test3",()=>{
 
 noa.inputs.bind("mounts","KeyM");
 noa.inputs.down.on("mounts",()=>{
+	console.log("pos ",noa.entities.getPosition(g)[0]*2);
 	noa.entities.setPosition(noa.entities.getPosition(g)[0]*2,20,809);
 })
 
