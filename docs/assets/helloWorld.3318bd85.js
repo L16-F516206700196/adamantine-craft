@@ -813,7 +813,7 @@ noa.inputs.down.on("test3",()=>{
 
 noa.inputs.bind("mounts","KeyM");
 noa.inputs.down.on("mounts",()=>{
-	noa.entities.setPosition(g,-643,20,809);
+	noa.entities.setPosition(g,9007199254740900,20,809);
 })
 
 noa.inputs.bind("fling","KeyF");
