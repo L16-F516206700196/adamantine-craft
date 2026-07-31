@@ -815,7 +815,7 @@ noa.inputs.bind("mounts","KeyM");
 noa.inputs.down.on("mounts",()=>{
 	let poh=noa.entities.getPosition(g);
 	console.log(poh);
-	noa.entities.setPosition(poh,20,809);
+	noa.entities.setPosition(g,poh[0]*2,20,809);
 })
 
 noa.inputs.bind("fling","KeyF");
