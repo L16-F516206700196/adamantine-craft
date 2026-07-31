@@ -850,7 +850,7 @@ noa.on('tick', function (dt) {
 		}
 	}
 	if(queuedBlockConditional.length>0){
-		for(let i=0;i<64;i++){
+		for(let i=0;i<16;i++){
 			if(queuedBlockConditional.length<1)return;
 			let qBC0=queuedBlockConditional[0];
 			console.log(queuedBlockConditional,"condition",qBC0);
