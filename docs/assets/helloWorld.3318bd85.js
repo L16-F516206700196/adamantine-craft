@@ -346,8 +346,8 @@ noa.registry.registerMaterial('underworld_tiles', {textureURL:"/underworld_tiles
 noa.registry.registerMaterial('mini_underworld_bricks', {textureURL:"/mini_underworld_bricks.png"});
 noa.registry.registerMaterial('grass_block_side',{textureURL:"/grass_block_side.png"})
 noa.registry.registerMaterial('dirty_stone',{textureURL:"/dirty_stone.png"})
-noa.registry.registerMaterial('snow',{textureURL:"/snow.png"})
-noa.registry.registerMaterial('snow_half',{textureURL:"/snow_half.png"})
+noa.registry.registerMaterial('snow_top',{textureURL:"/snow_top.png"})
+noa.registry.registerMaterial('snow_side',{textureURL:"/snow_side.png"})
 noa.registry.registerMaterial('sand',{textureURL:"/sand.png"})
 noa.registry.registerMaterial('sandstone',{textureURL:"/sandstone.png"})
 //noa.registry.registerMaterial(name, {textureURL?: string, color?: number[]})
@@ -538,8 +538,8 @@ var sapling_oak_auto_genID = noa.registry.registerBlock(38, {
 
 var grass_halfID = noa.registry.registerBlock(48, {material: ['grass_block_top','dirt','grass_block_side']});
 var dirty_stoneID = noa.registry.registerBlock(49, {material: 'dirty_stone'});
-var snow_fullID = noa.registry.registerBlock(50, {material: 'snow'});
-var snow_halfID = noa.registry.registerBlock(51, {material: ["snow","dirt",'snow_half']});
+var snow_fullID = noa.registry.registerBlock(50, {material: 'snow_top'});
+var snow_halfID = noa.registry.registerBlock(51, {material: ["snow_top","dirt",'snow_side']});
 var sandID = noa.registry.registerBlock(52, {material: 'sand'});
 var sandstoneID = noa.registry.registerBlock(53, {material: 'sandstone'});
 const playBlockSound=blockID=>{
