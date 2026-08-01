@@ -347,6 +347,9 @@ noa.registry.registerMaterial('mini_underworld_bricks', {textureURL:"/mini_under
 noa.registry.registerMaterial('grass_block_side',{textureURL:"/grass_block_side.png"})
 noa.registry.registerMaterial('dirty_stone',{textureURL:"/dirty_stone.png"})
 noa.registry.registerMaterial('snow',{textureURL:"/snow.png"})
+noa.registry.registerMaterial('snow_half',{textureURL:"/snow_half.png"})
+noa.registry.registerMaterial('sand',{textureURL:"/sand.png"})
+noa.registry.registerMaterial('sandstone',{textureURL:"/sandstone.png"})
 //noa.registry.registerMaterial(name, {textureURL?: string, color?: number[]})
 const BLOCK_TO_ID={
 	"dirt":1,
@@ -471,7 +474,10 @@ const BLOCK_TO_ID={
 	"mini_underworld_bricks":noa.registry.registerBlock(47, {material: 'mini_underworld_bricks'}),
 	"grass_block_half":48,
     "dirty_stone":49,
-    "snow":50,
+    "snow_full":50,
+	"snow_half":51,
+	"sand":52,
+	"sandstone":53
 };
 
 const BlockMD={
@@ -532,8 +538,10 @@ var sapling_oak_auto_genID = noa.registry.registerBlock(38, {
 
 var grass_halfID = noa.registry.registerBlock(48, {material: ['grass_block_top','dirt','grass_block_side']});
 var dirty_stoneID = noa.registry.registerBlock(49, {material: 'dirty_stone'});
-var snowID = noa.registry.registerBlock(50, {material: 'snow'});
-
+var snow_fullID = noa.registry.registerBlock(50, {material: 'snow'});
+var snow_halfID = noa.registry.registerBlock(51, {material: ["snow","dirt",'snow_half']});
+var sandID = noa.registry.registerBlock(52, {material: 'sand'});
+var sandstoneID = noa.registry.registerBlock(53, {material: 'sandstone'});
 const playBlockSound=blockID=>{
 	if(sounds.gravel.includes(blockID)){playAudio(`../hello-world/sounds/gravel${Math.ceil(Math.random()*6)}.mp3`)}
 	if(sounds.stone.includes(blockID)){playAudio(`../hello-world/sounds/stone${Math.ceil(Math.random()*6)}.mp3`)}
@@ -543,8 +551,9 @@ var nameToDisplayNameOverrides={
 	"grass_block_full":"Grass Block (Full)",
 	"leaves_oak_apple":"Oak Leaves With Apple",
 	"log_oak_stripped":"Oak Log (Stripped)",
-	"grass_block_half":"Grass Block (Half)"
-	
+	"grass_block_half":"Grass Block (Half)",
+	"snow_full":"Snow Block (Full)",
+	"snow_half":"Snow Block (Half)",
 }
 
 const nameToDisplayName=n=>{
@@ -575,6 +584,11 @@ function getVoxelID(x, y, z,height,data) {
 	if (y === -864) return bedrockID;
 	if(shouldBeCaveAir(x,y,z)&&y<amount)return 0;
 	if(y>amount)return 0;
+	let getTemp=temperature(x/blockScale,z/blockScale);
+	let Ybm0=getTemp>0.75?sandID:getTemp<0.25?snow_fullID:grass_fullID;
+	let Ybm1=getTemp>0.75?sandID:getTemp<0.25?snow_halfID:grass_halfID;
+	let Ybm2=getTemp>0.75?sandID:y>104?dirty_stoneID:dirtID;
+	let Ybm6=getTemp>0.75?sandstoneID:dirtID;
 	for(let I of Object.keys(gens)){
 		let J = gens[I]; // [min, max, chancePerBlock]
 		if(Math.abs(generateHash(`${x},${y},${z}|${seedNum}|${I}`))%16384<=J[2]*4&&(y>=J[0]&&y<=J[1])){
@@ -587,11 +601,12 @@ function getVoxelID(x, y, z,height,data) {
 	let under=data.get(dx,dy-1,dz);
 	if (y < -480 + (generateHash(`${x},${y},${z}|${seedNum}|underworld_rock`)%3))return underworld_rockID;
 	if (y < -192 + (generateHash(`${x},${y},${z}|${seedNum}|depthstone`)%3))return depthstoneID
-	if (y < amount-6) return y>144?snowID:stoneID;
-	if (y < amount-2) return y>144?snowID:y>112?stoneID:y>104?dirty_stoneID:dirtID
-	if (y < amount-1) return y>144?snowID:y>112?stoneID:y>=-3?grass_halfID:dirtID;
-	if (y < amount) return y>144?snowID:y>112?stoneID:y>=-3?grass_fullID:dirtID;
-	if (y >= amount && y < -3 &&(under!==0) )return waterID;
+	if (y < amount-21) return y>144?snow_fullID:stoneID;
+	if (y < amount-6) return y>144?snow_fullID:Ybm6;
+	if (y < amount-2) return y>144?snow_fullID:y>112?stoneID:Ybm2
+	if (y < amount-1) return y>144?snow_fullID:y>112?stoneID:y>=-3?grass_halfID:Ybm1;
+	if (y < amount) return y>144?snow_fullID:y>112?stoneID:y>=-3?grass_fullID:Ybm0;
+	if (y >= amount && y < -3 )return waterID;
 	let treeX=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,x`))*8);
 	let treeZ=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`))*8);
 	if(y<amount+1&&Math.floor(x/16)+treeX===x&&Math.floor(z/16)+treeZ===z&&under!==0)return sapling_oak_auto_genID;
