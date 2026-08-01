@@ -585,10 +585,10 @@ function getVoxelID(x, y, z,height,data) {
 	if(shouldBeCaveAir(x,y,z)&&y<amount)return 0;
 	if(y>amount)return 0;
 	let getTemp=temperature(x/blockScale,z/blockScale);
-	let Ybm0=getTemp>0.75?sandID:getTemp<0.25?snow_fullID:grass_fullID;
-	let Ybm1=getTemp>0.75?sandID:getTemp<0.25?snow_halfID:grass_halfID;
-	let Ybm2=getTemp>0.75?sandID:y>104?dirty_stoneID:dirtID;
-	let Ybm6=getTemp>0.75?sandstoneID:dirtID;
+	let Ybm0=getTemp>0.25?sandID:getTemp<-0.25?snow_fullID:grass_fullID;
+	let Ybm1=getTemp>0.25?sandID:getTemp<-0.25?snow_halfID:grass_halfID;
+	let Ybm2=getTemp>0.25?sandID:y>104?dirty_stoneID:dirtID;
+	let Ybm6=getTemp>0.25?sandstoneID:stoneID;
 	for(let I of Object.keys(gens)){
 		let J = gens[I]; // [min, max, chancePerBlock]
 		if(Math.abs(generateHash(`${x},${y},${z}|${seedNum}|${I}`))%16384<=J[2]*4&&(y>=J[0]&&y<=J[1])){
@@ -604,8 +604,8 @@ function getVoxelID(x, y, z,height,data) {
 	if (y < amount-21) return y>144?snow_fullID:stoneID;
 	if (y < amount-6) return y>144?snow_fullID:Ybm6;
 	if (y < amount-2) return y>144?snow_fullID:y>112?stoneID:Ybm2
-	if (y < amount-1) return y>144?snow_fullID:y>112?stoneID:y>=-3?Ybm1:sandID;
-	if (y < amount) return y>144?snow_fullID:y>112?stoneID:y>=-3?Ybm0:sandID;
+	if (y < amount-1) return y>144?snow_fullID:y>112?stoneID:Ybm1;
+	if (y < amount) return y>144?snow_fullID:y>112?stoneID:y>-3?Ybm0:y===-3?sandID:Ybm2;
 	if (y >= amount && y < -3 )return waterID;
 	let treeX=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,x`))*8);
 	let treeZ=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`))*8);
