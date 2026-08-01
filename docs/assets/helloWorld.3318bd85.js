@@ -97,12 +97,12 @@ for(let i=256;i>0;i--){
 
 
 const angleGen = (x, y,seed) => {
-	let hash=Math.abs(randomS(generateHash(`${x},${y}|${seed??""}${seedNum}`)));
+	let hash=Math.abs(Math.floor(randomS(generateHash(`${x},${y}|${seed??""}${seedNum}`))));
 	return gradientTable[hash & 7];
 }
 
 const angleGen3 = (x, y, z,seed) => {
-	let hash=Math.abs(randomS(generateHash(`${x},${y},${z}|${seed??""}${seedNum}`)));
+	let hash=Math.abs(Math.floor(12*randomS(generateHash(`${x},${y},${z}|${seed??""}${seedNum}`))));
 	return gradientTable3[hash % 12];
 }
 
@@ -112,8 +112,8 @@ const perlin = (x, y, seed) => {
 	let frx=x-x_0;
 	let fry=y-y_0;
 	let u = fade(frx), v = fade(fry); 
-	let s_00 = dot(angleGen(x_0,y_0),frx, fry, seed??seedNum), s_10 = dot(angleGen(x_1,y_0),frx-1, fry, seed??seedNum);
-	let s_01 = dot(angleGen(x_0,y_1),frx, fry-1, seed??seedNum), s_11 = dot(angleGen(x_1,y_1),frx-1, fry-1, seed??seedNum); 
+	let s_00 = dot(angleGen(x_0,y_0, seed??seedNum),frx, fry), s_10 = dot(angleGen(x_1,y_0, seed??seedNum),frx-1, fry, seed??seedNum);
+	let s_01 = dot(angleGen(x_0,y_1, seed??seedNum),frx, fry-1, seed??seedNum), s_11 = dot(angleGen(x_1,y_1, seed??seedNum),frx-1, fry-1, seed??seedNum); 
 	let lx0 = lerp(s_00,s_10,u), lx1 = lerp(s_01,s_11,u); 
 	let value = lerp(lx0,lx1,v);
 	return value;
@@ -126,10 +126,10 @@ const perlin3 = (x, y, z, seed) => {
 	let fry=y-y_0;
 	let frz=z-z_0;
 	let u = fade(frx), v = fade(fry), w = fade(frz);
-	let s_000 = dot3(angleGen3(x_0,y_0,z_0),frx, fry, frz, seed??seedNum), s_100 = dot3(angleGen3(x_1,y_0,z_0),frx-1, fry, frz, seed??seedNum);
-	let s_010 = dot3(angleGen3(x_0,y_1,z_0),frx, fry-1, frz, seed??seedNum), s_110 = dot3(angleGen3(x_1,y_1,z_0),frx-1, fry-1, frz, seed??seedNum); 
-	let s_001 = dot3(angleGen3(x_0,y_0,z_1),frx, fry, frz-1, seed??seedNum), s_101 = dot3(angleGen3(x_1,y_0,z_1),frx-1, fry, frz-1, seed??seedNum);
-	let s_011 = dot3(angleGen3(x_0,y_1,z_1),frx, fry-1, frz-1, seed??seedNum), s_111 = dot3(angleGen3(x_1,y_1,z_1),frx-1, fry-1, frz-1, seed??seedNum); 
+	let s_000 = dot3(angleGen3(x_0,y_0,z_0,seed??seedNum),frx, fry, frz, ), s_100 = dot3(angleGen3(x_1,y_0,z_0,seed??seedNum),frx-1, fry, frz, seed??seedNum);
+	let s_010 = dot3(angleGen3(x_0,y_1,z_0,seed??seedNum),frx, fry-1, frz, seed??seedNum), s_110 = dot3(angleGen3(x_1,y_1,z_0,seed??seedNum),frx-1, fry-1, frz, seed??seedNum); 
+	let s_001 = dot3(angleGen3(x_0,y_0,z_1,seed??seedNum),frx, fry, frz-1, seed??seedNum), s_101 = dot3(angleGen3(x_1,y_0,z_1,seed??seedNum),frx-1, fry, frz-1, seed??seedNum);
+	let s_011 = dot3(angleGen3(x_0,y_1,z_1,seed??seedNum),frx, fry-1, frz-1, seed??seedNum), s_111 = dot3(angleGen3(x_1,y_1,z_1,seed??seedNum),frx-1, fry-1, frz-1, seed??seedNum); 
 	let lx0 = lerp(s_000,s_100,u), lx1 = lerp(s_010,s_110,u); 
 	let lx2 = lerp(s_001,s_101,u), lx3 = lerp(s_011,s_111,u); 
 	let ly0 = lerp(lx0,lx1,v), ly1 = lerp(lx2,lx3,v);
