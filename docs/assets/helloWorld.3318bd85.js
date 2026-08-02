@@ -585,7 +585,7 @@ function getVoxelID(x, y, z,height,data) {
 	if(shouldBeCaveAir(x,y,z)&&y<amount)return 0;
 	if(y>amount)return 0;
 	let getTemp=temperature(x/blockScale,z/blockScale);
-	let variation=(0.056*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.028
+	let variation=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
 	let Ybm0=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_fullID:grass_fullID;
 	let Ybm1=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_halfID:grass_halfID;
 	let Ybm2=getTemp>0.25+variation?sandID:y>104?dirty_stoneID:dirtID;
