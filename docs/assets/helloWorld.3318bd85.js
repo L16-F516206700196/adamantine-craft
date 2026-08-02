@@ -17,7 +17,7 @@ var noa = new Engine(opts),e=noa;
 var permutationTable=[];
 for(let i=0;i<256;i++){permutationTable.push(i)}
 //perlin by FWJ7 / L16_F51620, normalisation for angleGen3 by GPT 5.4 nano (idk trig lol)
-let seedNum = 0;
+let seedNum = 1;
 let blockScale=16;
 let heightScaleDiv=256;
 let heightScale=8; //heightScaleDiv/heightScale
