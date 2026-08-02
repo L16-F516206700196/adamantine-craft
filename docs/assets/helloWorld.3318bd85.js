@@ -585,10 +585,11 @@ function getVoxelID(x, y, z,height,data) {
 	if(shouldBeCaveAir(x,y,z)&&y<amount)return 0;
 	if(y>amount)return 0;
 	let getTemp=temperature(x/blockScale,z/blockScale);
-	let Ybm0=getTemp>0.25?sandID:getTemp<-0.25?snow_fullID:grass_fullID;
-	let Ybm1=getTemp>0.25?sandID:getTemp<-0.25?snow_halfID:grass_halfID;
-	let Ybm2=getTemp>0.25?sandID:y>104?dirty_stoneID:dirtID;
-	let Ybm6=getTemp>0.25?sandstoneID:stoneID;
+	let variation=(0.056*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.028
+	let Ybm0=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_fullID:grass_fullID;
+	let Ybm1=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_halfID:grass_halfID;
+	let Ybm2=getTemp>0.25+variation?sandID:y>104?dirty_stoneID:dirtID;
+	let Ybm6=getTemp>0.25+variation?sandstoneID:stoneID;
 	for(let I of Object.keys(gens)){
 		let J = gens[I]; // [min, max, chancePerBlock]
 		if(Math.abs(generateHash(`${x},${y},${z}|${seedNum}|${I}`))%16384<=J[2]*4&&(y>=J[0]&&y<=J[1])){
