@@ -617,7 +617,7 @@ function getVoxelID(x, y, z,height,data) {
 let fbm=1.5;
 // register for world events
 noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
-	console.log(data.get(0,0,0))
+	//console.log(data.get(0,0,0))
 	// `id` - a unique string id for the chunk
 	// `data` - an `ndarray` of voxel ID data (see: https://github.com/scijs/ndarray)
 	// `x, y, z` - world coords of the corner of the chunk
@@ -846,7 +846,10 @@ noa.inputs.down.on("shift",()=>{
 noa.on('tick', function (dt) {
 	let vel=fm.velocity,speed=Math.sqrt(vel[0]**2 + vel[2]**2);
 	let displayCoords=noa.entities.getPosition(g).map(i=>`/ ${Math.round(i*1e2)/1e2} `).join("").slice(1);
+	let [px,py,pz]=noa.entities.getPosition(g).map(i=>Math.floor(i));
 	let displayVel=``;
+	let getHilly=hillyness(px/blockScale,pz/blockScale);
+	let getTemp=temperature(px/blockScale,pz/blockScale);
 	fm.velocity.forEach(i => displayVel+=`/ ${Math.round(i*1e4)/1e4} `);
 	displayVel=displayVel.slice(1);
 	/*Coordinates: X/Y/Z ${displayCoords}
@@ -856,6 +859,8 @@ noa.on('tick', function (dt) {
 	document.getElementById("debug-coords").innerHTML=`${displayCoords}`;
 	document.getElementById("debug-vel").innerHTML=`${displayVel}`;
 	document.getElementById("debug-speed").innerHTML=`${Math.round(speed*1e4)/1e4} b/s`;
+	document.getElementById("debug-temperature").innerHTML=`TMP: ${Math.round(getTemp*1e4)/1e4}`;
+	document.getElementById("debug-hillyness").innerHTML=`HIL: ${Math.round(getHilly*1e4)/1e4}`;
 	
 	if(queuedBlock.length>0){
 		for(let i=0;i<32;i++){
