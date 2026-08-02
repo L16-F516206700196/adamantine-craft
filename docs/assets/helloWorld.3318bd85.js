@@ -97,7 +97,7 @@ for(let i=256;i>0;i--){
 
 
 const angleGen = (x, y,seed) => {
-	let hash=Math.floor(12*randomS(Math.abs(generateHash(`${x},${y}|${seed??""}${seedNum}`))));
+	let hash=Math.floor(8*randomS(Math.abs(generateHash(`${x},${y}|${seed??""}${seedNum}`))));
 	return gradientTable[hash & 7];
 }
 
