@@ -97,12 +97,12 @@ for(let i=256;i>0;i--){
 
 
 const angleGen = (x, y,seed) => {
-	let hash=Math.floor(8*randomS(Math.abs(generateHash(`${x},${y}|${seed??""}${seedNum}`))));
+	let hash=Math.floor(8*randomS(Math.abs(generateHash(`${x},${y}|${seed??seedNum}`))));
 	return gradientTable[hash & 7];
 }
 
 const angleGen3 = (x, y, z,seed) => {
-	let hash=Math.floor(12*randomS(Math.abs(generateHash(`${x},${y},${z}|${seed??""}${seedNum}`))));
+	let hash=Math.floor(12*randomS(Math.abs(generateHash(`${x},${y},${z}|${seed??seedNum}`))));
 	return gradientTable3[hash % 12];
 }
 
@@ -144,8 +144,8 @@ const evalPerlinWithFBM=(x,y,z)=>{
 	+(perlin3(k/ 1,l/ 1,m/ 1)*(caveHeightScaleDiv/caveHeightScale)/8);
 }
 
-const temperature=(x,z)=>perlin(x/64,z/64,"temperature");
-const hillyness=(x,z)=>(perlin(x/64,z/64,"hillyness")+0.5)
+const temperature=(x,z)=>perlin(x/64,z/64,`temperature${seedNum}`);
+const hillyness=(x,z)=>(perlin(x/64,z/64,`hillyness${seedNum}`)+0.5)
 
 const shouldBeCaveAir = (x, y, z) => {
 	const sx=1,sy=1,sz=1;
