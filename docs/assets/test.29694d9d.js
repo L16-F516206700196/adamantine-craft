@@ -165,7 +165,7 @@ var G = Ae("pole", {}, C),
     ie = r.rendering.makeStandardMaterial();
 ie.diffuseColor.set(.7, .7, .7);
 G.material = ie;
-var se = ae.Scaling(.2, 1, .2);
+var se = ae.Scaling(.125, .125, .125);
 se.setTranslation(new Me(0, .5, 0));
 G.bakeTransformIntoVertices(se);
 i.pole = s.registerBlock(g++, {
