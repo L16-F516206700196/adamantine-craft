@@ -2,7 +2,7 @@
 import{E as Engine}from"./index.2b3d1184.js";
 import{
 	C as D,
-	T as k,
+	T as Texture,
     M as ae,
     V as Me,
     a as re,
