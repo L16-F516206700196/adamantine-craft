@@ -180,13 +180,13 @@ const shouldBeCaveAir = (x, y, z) => {
 	return t>0.77/*&&tunnel>0.12;*/
 }
 
-const shouldBeTest = (x, y, z,oreThreshold,len,th) => {
+const shouldBeTest = (x, y, z,oreThreshold,len,th,th2) => {
 	const sx=1,sy=1,sz=1;
-	let cV=evalPerlinWithFBM_ore(x*sx,y*sy,z*sz,"coal_ore",8,4,3);
+	let cV=evalPerlinWithFBM_ore(x*sx,y*sy,z*sz,"coal_ore",4,4,3);
 	cV+=31/32
 	cV/=31/16;
 	const t=smoothstep(oreThreshold-len,oreThreshold+len,cV)
-	return t>th/*&&tunnel>0.12;*/
+	return t>th&&randomS(generateHash(`${x},${y},${z}|${seedNum}|coal_ore`))>0.9/*&&tunnel>0.12;*/
 }
 
 /*
