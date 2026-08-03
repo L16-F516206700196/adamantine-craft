@@ -156,11 +156,11 @@ const evalPerlinWithFBM_cave=(x,y,z)=>{
 
 const evalPerlinWithFBM_ore=(x,y,z,ore,oreScale,oreHeightScaleDiv,oreHeightScale)=>{
 	let k=x/oreScale,l=y/oreScale,m=z/oreScale;
-	return (perlin3(k/16,l/16,m/16,`${ore??""}${seedNum}`)*(oreHeightScaleDiv/oreHeightScale)/1)
-	+(perlin3(k/ 8,l/ 8,m/ 8,`${ore??""}${seedNum}`)*(oreHeightScaleDiv/oreHeightScale)/2)
-	+(perlin3(k/ 4,l/ 4,m/ 4,`${ore??""}${seedNum}`)*(oreHeightScaleDiv/oreHeightScale)/4)
-	+(perlin3(k/ 2,l/ 2,m/ 2,`${ore??""}${seedNum}`)*(oreHeightScaleDiv/oreHeightScale)/8)
-	+(perlin3(k,l,m,`${ore??""}${seedNum}`)*(oreHeightScaleDiv/oreHeightScale)/16);
+	return (perlin3(k/16,l/4,m/16,`${ore??""}${seedNum}`)*(oreHeightScaleDiv/oreHeightScale)/1)
+	+(perlin3(k/ 8,l/ 2,m/ 8,`${ore??""}${seedNum}`)*(oreHeightScaleDiv/oreHeightScale)/2)
+	+(perlin3(k/ 4,l/ 1,m/ 4,`${ore??""}${seedNum}`)*(oreHeightScaleDiv/oreHeightScale)/4)
+	+(perlin3(k/ 2,l * 2,m/ 2,`${ore??""}${seedNum}`)*(oreHeightScaleDiv/oreHeightScale)/8)
+	+(perlin3(k,l * 4,m,`${ore??""}${seedNum}`)*(oreHeightScaleDiv/oreHeightScale)/16);
 }
 
 const temperature=(x,z)=>perlin(x/64,z/64,`temperature${seedNum}`);
@@ -180,13 +180,13 @@ const shouldBeCaveAir = (x, y, z) => {
 	return t>0.77/*&&tunnel>0.12;*/
 }
 
-const shouldBeTest = (x, y, z,oreThreshold,len) => {
+const shouldBeTest = (x, y, z,oreThreshold,len,th) => {
 	const sx=1,sy=1,sz=1;
 	let cV=evalPerlinWithFBM_ore(x*sx,y*sy,z*sz,"coal_ore",8,4,3);
 	cV+=31/32
 	cV/=31/16;
 	const t=smoothstep(oreThreshold-len,oreThreshold+len,cV)
-	return t>0.9/*&&tunnel>0.12;*/
+	return t>th/*&&tunnel>0.12;*/
 }
 
 /*
@@ -614,7 +614,7 @@ function getVoxelID(x, y, z,height,data) {
 	if (y === -864) return bedrockID;
 	if(shouldBeCaveAir(x,y,z)&&y<amount)return 0;
 	//console.log(data.get(dx,dy,dz), isStone);
-	if(shouldBeTest(x,y,z,0.89,0.023)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
+	if(shouldBeTest(x,y,z,0.81,0.023,0.828)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
 	if(y>amount)return 0;
 	let getTemp=temperature(x/blockScale,z/blockScale);
 	let variation=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
