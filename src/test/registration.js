@@ -144,14 +144,14 @@ var poleMesh = CreateBox('pole', {}, scene)
 var mat = noa.rendering.makeStandardMaterial()
 mat.diffuseColor.set(.7, .7, .7)
 poleMesh.material = mat
-var xform = Matrix.Scaling(0.2, 1, 0.2)
+var xform = Matrix.Scaling(0.125, 0.125, 0.125)
 xform.setTranslation(new Vector3(0, 0.5, 0))
 poleMesh.bakeTransformIntoVertices(xform)
 blockIDs.pole = reg.registerBlock(_id++, {
     blockMesh: poleMesh,
     opaque: false,
     onCustomMeshCreate: function (poleMesh, x, y, z) {
-        poleMesh.rotation.y = 123.456 * (x + 32 * z) % (6.28)
+        poleMesh.rotation.y = 0 * (x + 32 * z) % (6.28)
     },
 })
 
