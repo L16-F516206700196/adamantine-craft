@@ -146,7 +146,7 @@ const perlin3 = (x, y, z, seed) => {
 	let value = lerp(ly0,ly1,w);
 	return value;
 }
-const evalPerlinWithFBM=(x,y,z)=>{
+const evalPerlinWithFBM_cave=(x,y,z)=>{
 	let k=x/caveScale,l=y/caveScale,m=z/caveScale;
 	return (perlin3(k/16,l/16,m/16)*(caveHeightScaleDiv/caveHeightScale)/1)
 	+(perlin3(k/ 8,l/ 8,m/ 8)*(caveHeightScaleDiv/caveHeightScale)/2)
@@ -154,19 +154,38 @@ const evalPerlinWithFBM=(x,y,z)=>{
 	+(perlin3(k/ 1,l/ 1,m/ 1)*(caveHeightScaleDiv/caveHeightScale)/8);
 }
 
+const evalPerlinWithFBM_ore=(x,y,z,ore,oreScale,oreHeightScale,oreHeightScaleDiv)=>{
+	let k=x/oreScale,l=y/oreScale,m=z/oreScale;
+	return (perlin3(k/16,l/16,m/16,ore??"")*(oreHeightScaleDiv/oreHeightScale)/1)
+	+(perlin3(k/ 8,l/ 8,m/ 8,ore??"")*(oreHeightScaleDiv/oreHeightScale)/2)
+	+(perlin3(k/ 4,l/ 4,m/ 4,ore??"")*(oreHeightScaleDiv/oreHeightScale)/4)
+	+(perlin3(k/ 2,l/ 2,m/ 2,ore??"")*(oreHeightScaleDiv/oreHeightScale)/8)
+	+(perlin3(k,l,m,ore??"")*(oreHeightScaleDiv/oreHeightScale)/16);
+}
+
 const temperature=(x,z)=>perlin(x/64,z/64,`temperature${seedNum}`);
 const hillyness=(x,z)=>(perlin(x/64,z/64,`hillyness${seedNum}`)+0.5)
 
 const shouldBeCaveAir = (x, y, z) => {
 	const sx=1,sy=1,sz=1;
-	let cV=evalPerlinWithFBM(x*sx,y*sy,z*sz);
+	let cV=evalPerlinWithFBM_cave(x*sx,y*sy,z*sz);
 	cV+=15/16
 	cV/=15/8;
 	const t=smoothstep(caveThreshold-leniency,caveThreshold+leniency,cV)
 	let k=x/caveScale,l=y/caveScale,m=z/caveScale;
+	
 	/*let tunnel=perlin3(k/12,l/12,m/12)*((caveHeightScaleDiv/caveHeightScale)/4)
 	tunnel+=11/32;
 	tunnel*=16/11*/
+	return t>0.77/*&&tunnel>0.12;*/
+}
+
+const shouldBeTest = (x, y, z,oreThreshold,len) => {
+	const sx=1,sy=1,sz=1;
+	let cV=evalPerlinWithFBM_ore(x*sx,y*sy,z*sz);
+	cV+=31/32
+	cV/=31/16;
+	const t=smoothstep(oreThreshold-len,oreThreshold+len,cV)
 	return t>0.77/*&&tunnel>0.12;*/
 }
 
@@ -302,7 +321,7 @@ const checkStoneT=(x,y,z,r3,r2,r1)=>{
 
 noa.registry.registerMaterial('dirt', {textureURL:"/dirt.png"});
 noa.registry.registerMaterial('grass_block_top', {textureURL:"/grass_block_top.png"});
-noa.registry.registerMaterial('stone', {textureURL:"/stone.png"}); //stone
+noa.registry.registerMaterial('stone', {/*textureURL:"/stone.png"*/color:[0.5,0.5,0.5,0.3]}); //stone
 noa.registry.registerMaterial('depthstone', {textureURL:"/depthstone.png"}); //darker stone
 noa.registry.registerMaterial('bedrock', {textureURL:"/bedrock.png"});
 
@@ -594,6 +613,7 @@ function getVoxelID(x, y, z,height,data) {
 	if (y < -864) return 0;
 	if (y === -864) return bedrockID;
 	if(shouldBeCaveAir(x,y,z)&&y<amount)return 0;
+	if(shouldBeTest(x,y,z,0.93,0.02)&&y<amount)return coal_oreID;
 	if(y>amount)return 0;
 	let getTemp=temperature(x/blockScale,z/blockScale);
 	let variation=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
@@ -601,15 +621,15 @@ function getVoxelID(x, y, z,height,data) {
 	let Ybm1=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_halfID:grass_halfID;
 	let Ybm2=getTemp>0.25+variation?sandID:y>104?dirty_stoneID:dirtID;
 	let Ybm6=getTemp>0.25+variation?sandstoneID:stoneID;
-	for(let I of Object.keys(gens)){
+	/*for(let I of Object.keys(gens)){
 		let J = gens[I]; // [min, max, chancePerBlock]
 		if(Math.abs(generateHash(`${x},${y},${z}|${seedNum}|${I}`))%16384<=J[2]*4&&(y>=J[0]&&y<=J[1])){
-			/*return y<(-256 + (generateHash(`${x},${y},${z}|${seedNum}|underworld_stone`)%3) )?BLOCK_TO_ID[`underworld_stone_${I}`]:
+			/\*return y<(-256 + (generateHash(`${x},${y},${z}|${seedNum}|underworld_stone`)%3) )?BLOCK_TO_ID[`underworld_stone_${I}`]:
 			y<(-128 + (generateHash(`${x},${y},${z}|${seedNum}|depthstone`)%3) )?BLOCK_TO_ID[`depthstone_${I}`]:
-			BLOCK_TO_ID[I];*/
+			BLOCK_TO_ID[I];*\/
 			return BLOCK_TO_ID[I];
 		};
-	}
+	}*/
 	let under=data.get(dx,dy-1,dz);
 	if (y < -480 + (generateHash(`${x},${y},${z}|${seedNum}|underworld_rock`)%3))return underworld_rockID;
 	if (y < -192 + (generateHash(`${x},${y},${z}|${seedNum}|depthstone`)%3))return depthstoneID
