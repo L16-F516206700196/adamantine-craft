@@ -321,7 +321,7 @@ const checkStoneT=(x,y,z,r3,r2,r1)=>{
 
 noa.registry.registerMaterial('dirt', {textureURL:"/dirt.png"});
 noa.registry.registerMaterial('grass_block_top', {textureURL:"/grass_block_top.png"});
-noa.registry.registerMaterial('stone', {textureURL:"/stone_debug.png",texHasAlpha:!0,opaque:!1}); //stone
+noa.registry.registerMaterial('stone', {textureURL:"/stone_debug.png",texHasAlpha:!0}); //stone
 noa.registry.registerMaterial('depthstone', {textureURL:"/depthstone.png"}); //darker stone
 noa.registry.registerMaterial('bedrock', {textureURL:"/bedrock.png"});
 
@@ -532,7 +532,7 @@ let ID_TO_BLOCK=[
 // block types and their material names
 var dirtID = noa.registry.registerBlock(1, {material: 'dirt'})
 var grass_fullID = noa.registry.registerBlock(2, {material: 'grass_block_top'})
-var stoneID = noa.registry.registerBlock(3, {material: 'stone'})
+var stoneID = noa.registry.registerBlock(3, {material: 'stone',opaque:!1})
 var depthstoneID = noa.registry.registerBlock(4, {material: 'depthstone'})
 var bedrockID = noa.registry.registerBlock(5, {material: 'bedrock'})
 var underworld_rockID = noa.registry.registerBlock(20, {material: 'underworld_rock'})
