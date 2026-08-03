@@ -182,7 +182,7 @@ const shouldBeCaveAir = (x, y, z) => {
 
 const shouldBeTest = (x, y, z,oreThreshold,len,th,th2) => {
 	const sx=1,sy=1,sz=1;
-	let cV=evalPerlinWithFBM_ore(x*sx,y*sy,z*sz,"coal_ore",1,4,3);
+	let cV=evalPerlinWithFBM_ore(x*sx,y*sy,z*sz,"coal_ore",0.125,4,3);
 	cV+=31/32
 	cV/=31/16;
 	const t=smoothstep(oreThreshold-len,oreThreshold+len,cV)
@@ -614,7 +614,7 @@ function getVoxelID(x, y, z,height,data) {
 	if (y === -864) return bedrockID;
 	if(shouldBeCaveAir(x,y,z)&&y<amount)return 0;
 	//console.log(data.get(dx,dy,dz), isStone);
-	if(shouldBeTest(x,y,z,0.55,0.012,0.559)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
+	if(shouldBeTest(x,y,z,0.6,0.012,0.609)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
 	if(y>amount)return 0;
 	let getTemp=temperature(x/blockScale,z/blockScale);
 	let variation=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
