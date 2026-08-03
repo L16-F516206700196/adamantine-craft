@@ -146,7 +146,11 @@ mat.diffuseColor.set(.7, .7, .7)
 poleMesh.material = mat
 var xform = Matrix.Scaling(0.125, 0.125, 0.125)
 xform.setTranslation(new Vector3(0, 0.5, 0))
+var fform = Matrix.Scaling(0.125, 0.125, 0.125)
+fform.setTranslation(new Vector3(0, 0.375, 0))
 poleMesh.bakeTransformIntoVertices(xform)
+poleMesh.bakeTransformIntoVertices(fform)
+
 blockIDs.pole = reg.registerBlock(_id++, {
     blockMesh: poleMesh,
     opaque: false,
