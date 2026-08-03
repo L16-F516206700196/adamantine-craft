@@ -186,7 +186,7 @@ const shouldBeTest = (x, y, z,oreThreshold,len) => {
 	cV+=31/32
 	cV/=31/16;
 	const t=smoothstep(oreThreshold-len,oreThreshold+len,cV)
-	return t>0.72/*&&tunnel>0.12;*/
+	return t>0.9/*&&tunnel>0.12;*/
 }
 
 /*
