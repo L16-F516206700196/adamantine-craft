@@ -167,7 +167,10 @@ ie.diffuseColor.set(.7, .7, .7);
 G.material = ie;
 var se = ae.Scaling(.125, .125, .125);
 se.setTranslation(new Me(0, .5, 0));
+var see = ae.Scaling(.125, .125, .125);
+see.setTranslation(new Me(0, .375, 0));
 G.bakeTransformIntoVertices(se);
+G.bakeTransformIntoVertices(see);
 i.pole = s.registerBlock(g++, {
     blockMesh: G,
     opaque: !1,
