@@ -614,7 +614,7 @@ function getVoxelID(x, y, z,height,data) {
 	if (y === -864) return bedrockID;
 	if(shouldBeCaveAir(x,y,z)&&y<amount)return 0;
 	console.log(data.get(dx,dy,dz), isStone);
-	if(shouldBeTest(x,y,z,0.6,0.02)&&y<amount&&isStone.includes(data.get(dx,dy,dz)))return BLOCK_TO_ID["coal_ore"];
+	if(shouldBeTest(x,y,z,0.6,0.02)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
 	if(y>amount)return 0;
 	let getTemp=temperature(x/blockScale,z/blockScale);
 	let variation=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
@@ -634,6 +634,7 @@ function getVoxelID(x, y, z,height,data) {
 	let under=data.get(dx,dy-1,dz);
 	if (y < -480 + (generateHash(`${x},${y},${z}|${seedNum}|underworld_rock`)%3))return underworld_rockID;
 	if (y < -192 + (generateHash(`${x},${y},${z}|${seedNum}|depthstone`)%3))return depthstoneID
+	
 	if (y < amount-21) return y>144?snow_fullID:stoneID;
 	if (y < amount-6) return y>144?snow_fullID:Ybm6;
 	if (y < amount-2) return y>144?snow_fullID:y>112?stoneID:Ybm2
