@@ -5,10 +5,10 @@ import{
 	T as Texture,
     M as ae,
     V as Me,
-    a as re,
-    b as H,
-    c as Ce,
-    d as ve
+    aa as re,
+    bb as H,
+    cc as Ce,
+    dd as ve
 }from"./babylon.39bd9ef3.js";
 var opts = {
 	debug: true,
@@ -182,7 +182,7 @@ const shouldBeCaveAir = (x, y, z) => {
 
 const shouldBeTest = (x, y, z,oreThreshold,len) => {
 	const sx=1,sy=1,sz=1;
-	let cV=evalPerlinWithFBM_ore(x*sx,y*sy,z*sz);
+	let cV=evalPerlinWithFBM_ore(x*sx,y*sy,z*sz,"coal_ore",4,3,2);
 	cV+=31/32
 	cV/=31/16;
 	const t=smoothstep(oreThreshold-len,oreThreshold+len,cV)
