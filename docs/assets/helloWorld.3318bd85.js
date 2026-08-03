@@ -614,7 +614,7 @@ function getVoxelID(x, y, z,height,data) {
 	if (y === -864) return bedrockID;
 	if(shouldBeCaveAir(x,y,z)&&y<amount)return 0;
 	//console.log(data.get(dx,dy,dz), isStone);
-	if(shouldBeTest(x,y,z,0.92,0.02)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
+	if(shouldBeTest(x,y,z,0.89,0.023)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
 	if(y>amount)return 0;
 	let getTemp=temperature(x/blockScale,z/blockScale);
 	let variation=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
