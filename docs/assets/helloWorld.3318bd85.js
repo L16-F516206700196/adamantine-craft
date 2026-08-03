@@ -835,6 +835,20 @@ noa.inputs.down.on("mounts",()=>{
 	noa.entities.setPosition(g,poh[0]*2,20,809);
 })
 
+noa.inputs.bind("minus","KeyB");
+noa.inputs.down.on("minus",()=>{
+	/*let poh=noa.entities.getPosition(g);
+	console.log(poh);
+	noa.entities.setPosition(g,poh[0]*2,20,809);*/
+})
+
+noa.inputs.bind("plus","KeyN");
+noa.inputs.down.on("plus",()=>{
+	/*let poh=noa.entities.getPosition(g);
+	console.log(poh);
+	noa.entities.setPosition(g,poh[0]*2,20,809);*/
+})
+
 noa.inputs.bind("fling","KeyF");
 noa.inputs.down.on("fling",()=>{
 	fm.applyImpulse([0,15,0]);
