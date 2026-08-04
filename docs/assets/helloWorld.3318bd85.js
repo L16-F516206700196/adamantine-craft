@@ -629,7 +629,7 @@ function getVoxelID(x, y, z,height,data) {
 			/*return y<(-256 + (generateHash(`${x},${y},${z}|${seedNum}|underworld_stone`)%3) )?BLOCK_TO_ID[`underworld_stone_${I}`]:
 			y<(-128 + (generateHash(`${x},${y},${z}|${seedNum}|depthstone`)%3) )?BLOCK_TO_ID[`depthstone_${I}`]:
 			BLOCK_TO_ID[I];*/
-			return genFunc(x,y,z,checkStoneT(x,y,z,...gei[J]),J);
+			return genFunc(x,y,z,checkStoneT(x,y,z,...gei[I]),I);
 		};
 	}
 	let under=data.get(dx,dy-1,dz);
