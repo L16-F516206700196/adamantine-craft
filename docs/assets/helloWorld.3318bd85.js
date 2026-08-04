@@ -284,6 +284,19 @@ const sounds={
 const genFunc=(x,y,z,oreS,genName)=>{
 	let oreN=ID_TO_BLOCK[oreS];
 	let genInfo=gens[genName],genAmt=genInfo[3];
+	let getBAround=[
+		noa.getBlock(x,y-1,z),
+		noa.getBlock(x,y+1,z),
+		noa.getBlock(x-1,y,z),
+		noa.getBlock(x+1,y,z),
+		noa.getBlock(x,y,z-1),
+		noa.getBlock(x,y,z+1),
+	],amounts={};
+	for(let i of getBAround){
+		if(i in amounts){amounts[i]++}else{amounts[i]=1}
+	}
+	let arounts=Object.values(amounts).sort((a,b)=>b[1]-a[1]);
+	let blockPlaced=arounts[0][0]
 	for(let I=0;I<genAmt;I++){
 		let sr1=(Math.round(randomS(generateHash(`${x},${y},${z}|${seedNum}|${oreN}|${I}xu`)))-0.5)*2,
 			sr2=(Math.round(randomS(generateHash(`${x},${y},${z}|${seedNum}|${oreN}|${I}zu`)))-0.5)*2;
@@ -291,7 +304,7 @@ const genFunc=(x,y,z,oreS,genName)=>{
 			r2=sr2*(randomS(generateHash(`${x},${y},${z}|${seedNum}|${oreN}|${I}z`)))*Math.ceil(Math.sqrt(genInfo[4]));
 		if(isStone.includes(noa.getBlock(x+r1,y,z+r2)))queuedBlock.push([oreS,x+r1,y,z+r2]);
 	}
-	queuedBlockConditional.push([(x,y,z)=>isStone.includes(noa.getBlock(x,y,z)),oreS,0,[x,y,z]]);	
+	queuedBlockConditional.push([(x,y,z)=>isStone.includes(noa.getBlock(x,y,z)),oreS,blockPlaced,[x,y,z]]);	
 }
 // l=Logs,f=Foliage,r=fRuit
 const treeGen=[
