@@ -180,14 +180,14 @@ const shouldBeCaveAir = (x, y, z) => {
 	return t>0.77/*&&tunnel>0.12;*/
 }
 
-const shouldBeTest = (x, y, z,oreThreshold,len,th,th2) => {
+/*const shouldBeTest = (x, y, z,oreThreshold,len,th,th2) => {
 	const sx=1,sy=1,sz=1;
 	let cV=evalPerlinWithFBM_ore(x*sx,y*sy,z*sz,"coal_ore",0.125,1,3);
 	cV+=31/32
 	cV/=31/16;
 	const t=smoothstep(oreThreshold-len,oreThreshold+len,cV)
-	return t>th//&&randomS(generateHash(`${x},${y},${z}|${seedNum}|coal_ore`))>0.9/*&&tunnel>0.12;*/
-}
+	return t>th//&&randomS(generateHash(`${x},${y},${z}|${seedNum}|coal_ore`))>0.9
+}*/
 
 /*
  *
@@ -614,23 +614,24 @@ function getVoxelID(x, y, z,height,data) {
 	if (y === -864) return bedrockID;
 	if(shouldBeCaveAir(x,y,z)&&y<amount)return 0;
 	//console.log(data.get(dx,dy,dz), isStone);
-	if(shouldBeTest(x,y,z,0.7,0.012,0.709)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
-	if(y>amount)return 0;
+	//if(shouldBeTest(x,y,z,0.7,0.012,0.709)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
+	if(y>amount&&y>=-3)return 0;
 	let getTemp=temperature(x/blockScale,z/blockScale);
 	let variation=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
 	let Ybm0=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_fullID:grass_fullID;
 	let Ybm1=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_halfID:grass_halfID;
 	let Ybm2=getTemp>0.25+variation?sandID:y>104?dirty_stoneID:dirtID;
 	let Ybm6=getTemp>0.25+variation?sandstoneID:stoneID;
-	/*for(let I of Object.keys(gens)){
+	for(let I of Object.keys(gens)){
 		let J = gens[I]; // [min, max, chancePerBlock]
+		let oreI=I.replaceAll(/gen/g,"ore");
 		if(Math.abs(generateHash(`${x},${y},${z}|${seedNum}|${I}`))%16384<=J[2]*4&&(y>=J[0]&&y<=J[1])){
-			/\*return y<(-256 + (generateHash(`${x},${y},${z}|${seedNum}|underworld_stone`)%3) )?BLOCK_TO_ID[`underworld_stone_${I}`]:
+			/*return y<(-256 + (generateHash(`${x},${y},${z}|${seedNum}|underworld_stone`)%3) )?BLOCK_TO_ID[`underworld_stone_${I}`]:
 			y<(-128 + (generateHash(`${x},${y},${z}|${seedNum}|depthstone`)%3) )?BLOCK_TO_ID[`depthstone_${I}`]:
-			BLOCK_TO_ID[I];*\/
-			return BLOCK_TO_ID[I];
+			BLOCK_TO_ID[I];*/
+			return genFunc(x,y,z,checkStoneT(x,y,z,...gei[J]),J);
 		};
-	}*/
+	}
 	let under=data.get(dx,dy-1,dz);
 	if (y < -480 + (generateHash(`${x},${y},${z}|${seedNum}|underworld_rock`)%3))return underworld_rockID;
 	if (y < -192 + (generateHash(`${x},${y},${z}|${seedNum}|depthstone`)%3))return depthstoneID
@@ -910,7 +911,7 @@ noa.on('tick', function (dt) {
 	document.getElementById("debug-hillyness").innerHTML=`HIL: ${Math.round(getHilly*1e4)/1e4}`;
 	
 	if(queuedBlock.length>0){
-		for(let i=0;i<32;i++){
+		for(let i=0;i<64;i++){
 			if(queuedBlock.length<1)return;
 			let queuedBlock0=queuedBlock[0];
 			noa.setBlock(...queuedBlock0);
@@ -923,14 +924,6 @@ noa.on('tick', function (dt) {
 			let qBC0=queuedBlockConditional[0];
 			noa.setBlock(qBC0[0](...qBC0[3])?qBC0[1]:qBC0[2],...qBC0[3]);
 			queuedBlock.splice(0,1);
-		}
-	}
-	if(qBRequiresUnder.length>0){
-		for(let i=0;i<32;i++){
-			if(qBRequiresUnder.length<1)return;
-			let qBRequiresUnder0=qBRequiresUnder[0];
-			if(noa.getBlock(qBRequiresUnder0[1],qBRequiresUnder0[2],qBRequiresUnder0[3])!==0)noa.setBlock(...qBRequiresUnder0);
-			qBRequiresUnder.splice(0,1);
 		}
 	}
 	
