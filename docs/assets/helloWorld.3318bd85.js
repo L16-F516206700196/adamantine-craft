@@ -126,7 +126,7 @@ const perlin = (x, y, seed) => {
 	let s_01 = dot(angleGen(x_0,y_1, seed??seedNum),frx, fry-1, seed??seedNum), s_11 = dot(angleGen(x_1,y_1, seed??seedNum),frx-1, fry-1, seed??seedNum); 
 	let lx0 = lerp(s_00,s_10,u), lx1 = lerp(s_01,s_11,u); 
 	let value = lerp(lx0,lx1,v);
-	return value/Math.sqrt(2);
+	return value; //[-sqrt(2),sqrt(2)]
 }
 
 const perlin3 = (x, y, z, seed) => {
@@ -144,7 +144,7 @@ const perlin3 = (x, y, z, seed) => {
 	let lx2 = lerp(s_001,s_101,u), lx3 = lerp(s_011,s_111,u); 
 	let ly0 = lerp(lx0,lx1,v), ly1 = lerp(lx2,lx3,v);
 	let value = lerp(ly0,ly1,w);
-	return value/Math.sqrt(2);
+	return value; //[-sqrt(2),sqrt(2)]
 }
 const evalPerlinWithFBM_cave=(x,y,z)=>{
 	let k=x/caveScale,l=y/caveScale,m=z/caveScale;
