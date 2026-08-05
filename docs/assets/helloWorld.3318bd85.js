@@ -382,6 +382,7 @@ noa.registry.registerMaterial('sand',{textureURL:"/sand.png"})
 noa.registry.registerMaterial('sandstone',{textureURL:"/sandstone.png"})
 //noa.registry.registerMaterial(name, {textureURL?: string, color?: number[]})
 const BLOCK_TO_ID={
+	air:0,
 	"dirt":1,
 	"grass_block_full":2,
 	"stone":3,
@@ -615,7 +616,7 @@ function getVoxelID(x, y, z,height,data) {
 	if(shouldBeCaveAir(x,y,z)&&y<amount)return 0;
 	//console.log(data.get(dx,dy,dz), isStone);
 	//if(shouldBeTest(x,y,z,0.7,0.012,0.709)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
-	if(y>amount&&y>=-3)return 0;
+	if(y>=amount&&y>=-3)return 0;
 	let getTemp=temperature(x/blockScale,z/blockScale);
 	let variation=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
 	let Ybm0=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_fullID:grass_fullID;
@@ -639,14 +640,15 @@ function getVoxelID(x, y, z,height,data) {
 	if (y < amount-21) return y>144?snow_fullID:stoneID;
 	if (y < amount-6) return y>144?snow_fullID:Ybm6;
 	if (y < amount-2) return y>144?snow_fullID:y>112?stoneID:Ybm2
-	if (y < amount-1) return y>144?snow_fullID:y>112?stoneID:Ybm1;
+	if (y < amount-1) return y>144?snow_fullID:y>112?stoneID:y>-3?Ybm0:Ybm2;
 	if (y < amount) return y>144?snow_fullID:y>112?stoneID:y>-3?Ybm0:y===-3?sandID:Ybm2;
 	if (y >= amount && y < -3 )return waterID;
 	let treeX=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,x`))*8);
 	let treeZ=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`))*8);
 	if(y<amount+1&&Math.floor(x/16)+treeX===x&&Math.floor(z/16)+treeZ===z&&under!==0)return sapling_oak_auto_genID;
 	
-	 return dirty_stoneID;// signifying empty space
+	return /*dirty_stoneID*/0;// signifying empty space
+	//Dirty Stone is for when debugging.
 }
 let fbm=1.5;
 // register for world events
