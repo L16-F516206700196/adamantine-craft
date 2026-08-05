@@ -646,7 +646,7 @@ function getVoxelID(x, y, z,height,data) {
 	let treeZ=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`))*8);
 	if(y<amount+1&&Math.floor(x/16)+treeX===x&&Math.floor(z/16)+treeZ===z&&under!==0)return sapling_oak_auto_genID;
 	
-	 return 0;// signifying empty space
+	 return dirty_stoneID;// signifying empty space
 }
 let fbm=1.5;
 // register for world events
