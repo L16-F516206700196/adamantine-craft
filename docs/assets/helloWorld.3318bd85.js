@@ -626,6 +626,7 @@ function getVoxelID(x, y, z,height,data) {
 	for(let I of Object.keys(gens)){
 		let J = gens[I]; // [min, max, chancePerBlock]
 		let oreI=I.replaceAll(/gen/g,"ore");
+		if(y>=amount-6)return;
 		if(Math.abs(generateHash(`${x},${y},${z}|${seedNum}|${I}`))%16384<=J[2]*4&&(y>=J[0]&&y<=J[1])){
 			/*return y<(-256 + (generateHash(`${x},${y},${z}|${seedNum}|underworld_stone`)%3) )?BLOCK_TO_ID[`underworld_stone_${I}`]:
 			y<(-128 + (generateHash(`${x},${y},${z}|${seedNum}|depthstone`)%3) )?BLOCK_TO_ID[`depthstone_${I}`]:
