@@ -291,27 +291,7 @@ const genFunc=(x,y,z,oreS,genName)=>{
 			r2=sr2*(randomS(generateHash(`${x},${y},${z}|${seedNum}|${oreN}|${I}z`)))*Math.ceil(Math.sqrt(genInfo[4]));
 		if(isStone.includes(noa.getBlock(x+r1,y,z+r2)))queuedBlock.push([oreS,x+r1,y,z+r2]);
 	}
-	queuedBlockConditional.push(
-		[
-			(x,y,z)=>isStone.includes(noa.getBlock(x,y,z)),
-			()=>oreS,
-			(x,y,z)=>{
-				let getBAround=[
-					noa.getBlock(x,y-1,z),
-					noa.getBlock(x,y+1,z),
-					noa.getBlock(x-1,y,z),
-					noa.getBlock(x+1,y,z),
-					noa.getBlock(x,y,z-1),
-					noa.getBlock(x,y,z+1),
-				],amounts={};
-				for(let i of getBAround){
-					if(i in amounts){amounts[i]++}else{amounts[i]=1}
-				}
-				let arounts=Object.values(amounts).sort((a,b)=>b[1]-a[1]);
-				return arounts[0][0]
-			},
-			[x,y,z]
-		]);	
+	if(isStone.includes(noa.getBlock(x,y,z)))queuedBlock.push([oreS,x,y,z]);
 }
 // l=Logs,f=Foliage,r=fRuit
 const treeGen=[
