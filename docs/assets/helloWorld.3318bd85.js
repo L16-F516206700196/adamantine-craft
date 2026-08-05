@@ -942,7 +942,7 @@ noa.on('tick', function (dt) {
 		for(let i=0;i<16;i++){
 			if(queuedBlockConditional.length<1)return;
 			let qBC0=queuedBlockConditional[0];
-			noa.setBlock(qBC0[0](...qBC0[3])?qBC0[1](...qBCO[3]):qBC0[2](...qBCO[3]),...qBC0[3]);
+			noa.setBlock(qBC0[0](...qBC0[3])?qBC0[1](...qBC0[3]):qBC0[2](...qBC0[3]),...qBC0[3]);
 			queuedBlockConditional.splice(0,1);
 		}
 	}
