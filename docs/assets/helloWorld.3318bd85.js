@@ -260,8 +260,8 @@ let isStone=[
 	20,
 ]
 let gens={
-	coal_gen:[-360,-16,5,12,8],
-	iron_gen:[-360,-48,4.5,9,7],
+	coal_gen:[-360,120,5,12,8],
+	iron_gen:[-360,120,4.5,9,7],
 	gold_gen:[-360,-96,4,6,6],
 	titanium_gen:[-360,-112,3,5,6],
 	sapphire_gen:[-360,-144,3,5,5],
