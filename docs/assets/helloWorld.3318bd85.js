@@ -163,8 +163,9 @@ const evalPerlinWithFBM_ore=(x,y,z,ore,oreScale,oreHeightScaleDiv,oreHeightScale
 	+(perlin3(k,l * 4,m,`${ore??""}${seedNum}`)*(oreHeightScaleDiv/oreHeightScale)/16);
 }
 
-const temperature=(x,z)=>perlin(x/64,z/64,`temperature${seedNum}`);
-const hillyness=(x,z)=>(perlin(x/64,z/64,`hillyness${seedNum}`)+0.5)
+const temperature=(x,z)=>(perlin(x/64,z/64,`temperature${seedNum}`))/Math.sqrt(2);
+const hillyness=(x,z)=>((perlin(x/64,z/64,`hillyness${seedNum}`)/Math.sqrt(2))+0.5)
+const humidity=(x,z)=>(perlin(x/64,z/64,`humidity${seedNum}`))/Math.sqrt(2);
 
 const shouldBeCaveAir = (x, y, z) => {
 	const sx=1,sy=1,sz=1;
@@ -665,8 +666,8 @@ noa.world.on('worldDataNeeded', function (id, data, x, y, z) {
 			let m=(z+k)/blockScale;
 			let getHilly=hillyness(l,m);
 			let heightMult=1;
-			if(getHilly>0.7){
-				heightMult=1+(20*(getHilly-0.7));
+			if(getHilly>0.65){
+				heightMult=1+(30*(getHilly-0.65));
 			}
 			let height=((perlin(l/64,m/64)*(heightScaleDiv/heightScale))
 			+(perlin(l/32,m/32)*(heightScaleDiv/heightScale)/1.5)
