@@ -62,7 +62,7 @@ import{
     d as ve
 }from"./babylon.39bd9ef3.js";
 
-import atlas from "../textures/atlas.png"
+import atlas from "../hello-world/textures/atlas.png"
 var opts = {
 	debug: true,
 	showFPS: true,
@@ -692,12 +692,47 @@ function getVoxelID(x, y, z,height,data) {
 	//console.log(data.get(dx,dy,dz), isStone);
 	//if(shouldBeTest(x,y,z,0.7,0.012,0.709)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
 	if(y>=amount&&y>=-3)return 0;
-	let getTemp=temperature(x/blockScale,z/blockScale);
-	let variation=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
-	let Ybm0=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_fullID:grass_block_fullID;
-	let Ybm1=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_halfID:grass_block_halfID;
-	let Ybm2=getTemp>0.25+variation?sandID:y>64?dirty_stoneID:dirtID;
-	let Ybm6=getTemp>0.25+variation?sandstoneID:stoneID;
+	let getTemp=temperature(x/blockScale,z/blockScale),getHumid=humidity(x/blockScale,z/blockScale);
+	let variationTemp=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
+	let variationHumid=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
+	let Ybm0=
+		getTemp>0.25 + variationTemp
+		? (
+			getHumid > 0.25 
+			? jungle_grass_block_fullID
+			: sandID
+		)
+		:   getTemp < -0.25 + variationTemp
+			? snow_fullID 
+			: grass_block_fullID;
+	let Ybm1=
+		getTemp > 0.25 + variationTemp
+		? (
+			getHumid > 0.25 
+			? jungle_grass_block_halfID
+			: sandID
+		)
+		:   getTemp < -0.25 + variationTemp
+			? snow_halfID
+			: grass_block_halfID;
+	let Ybm2 = 
+		getTemp > 0.25 + variationTemp
+		? (
+			getHumid > 0.25 
+			? dirtID
+			: sandID
+		)
+		:   y > 64
+			? dirty_stoneID
+			: dirtID;
+	let Ybm6 = 
+		getTemp > 0.25 + variationTemp
+		? (
+			getHumid > 0.25 
+			? stoneID
+			: sandstoneID
+		)
+		: stoneID;
 	for(let I of Object.keys(gens)){
 		let J = gens[I]; // [min, max, chancePerBlock]
 		let oreI=I.replaceAll(/gen/g,"ore");
