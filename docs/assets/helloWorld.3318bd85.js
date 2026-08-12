@@ -691,8 +691,8 @@ function getVoxelID(x, y, z,height,data) {
 	if(ahh&&y<amount)return 0;
 	//console.log(data.get(dx,dy,dz), isStone);
 	//if(shouldBeTest(x,y,z,0.7,0.012,0.709)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
-	let treeX=randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,x`))/4294967295 + 0.5;
-	let treeZ=randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`))/4294967295 + 0.5;
+	let treeX=8*(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,x`)))+4;
+	let treeZ=8*(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`)))+4;
 	console.log(treeX,treeZ)
 	if(y<amount+1&&Math.floor(x/16)+treeX===x&&Math.floor(z/16)+treeZ===z&&!ahh)return sapling_oak_auto_genID;
 	if(y>=amount&&y>=-3)return 0;
