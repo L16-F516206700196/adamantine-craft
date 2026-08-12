@@ -693,7 +693,7 @@ function getVoxelID(x, y, z,height,data) {
 	//if(shouldBeTest(x,y,z,0.7,0.012,0.709)&&(y<amount-6&&y<=144))return BLOCK_TO_ID["coal_ore"];
 	let treeX=Math.floor(8*(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,x`)))+4);
 	let treeZ=Math.floor(8*(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`)))+4);
-	console.log(treeX,treeZ)
+	//console.log(treeX,treeZ)
 	if(y<amount+1&&Math.floor(x/16)+treeX===x&&Math.floor(z/16)+treeZ===z&&!ahh)return sapling_oak_auto_genID;
 	if(y>=amount&&y>=-3)return 0;
 	let getTemp=temperature(x/blockScale,z/blockScale),getHumid=humidity(x/blockScale,z/blockScale);
