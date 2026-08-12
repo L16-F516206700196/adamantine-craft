@@ -1,4 +1,55 @@
 
+/*
+dirt, 
+grassblocktop, 
+stone, 
+depthstone, 
+bedrock, 
+coal, 
+iron, 
+gold, 
+titanium, 
+sapphire, 
+diamond, 
+dcoal, 
+diron, 
+dgold, 
+dtitaniu, 
+dsapphire, 
+ddiamond, 
+depthemerald, 
+dadamantine, 
+urock, 
+uemerald, 
+uadamantine, 
+logoak, 
+leavesoak, 
+leavesoakapple, 
+planksoak, 
+logoakstripped, 
+oaksapling, 
+sbrick, 
+stiles, 
+smbrick, 
+dbrick, 
+dtiles, 
+dmbrick, 
+ubrick, 
+utiles, 
+umbrick, 
+grassblockside, 
+dirtystone, 
+snowtop, 
+snowside, 
+sand, 
+sandstone,
+emerald,
+adamantine,
+cutsandstone,
+carvedsandstone,
+sandstonebrick
+*/
+//left off at line 612, maybe revert scale changes. also line 21 make scale smaller
 import{E as Engine}from"./index.2b3d1184.js";
 import{
 	C as D,
@@ -10,6 +61,8 @@ import{
     c as Ce,
     d as ve
 }from"./babylon.39bd9ef3.js";
+
+import atlas from "../textures/atlas.png"
 var opts = {
 	debug: true,
 	showFPS: true,
@@ -272,8 +325,8 @@ let gens={
 }
 
 const sounds={
-	gravel:[1,2,48,49,50,51],
-	stone:[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,39,40,41,42,43,44,45,46,47,53,54,55,56,57,58],
+	gravel:[1,2,48,49,50,51,60,61],
+	stone:[3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,39,40,41,42,43,44,45,46,47,53,54,55,56,57,58,59],
 	wood:[32,35,36],
 	foliage:[33,34,37,38],
 	sand:[52]
@@ -320,67 +373,75 @@ const checkStoneT=(x,y,z,r3,r2,r1)=>{
 	r1;
 }
 
-noa.registry.registerMaterial('dirt', {textureURL:"/dirt.png"});
-noa.registry.registerMaterial('grass_block_top', {textureURL:"/grass_block_top.png"});
-noa.registry.registerMaterial('stone', {textureURL:"/stone_debug.png",texHasAlpha:!0}); //stone
-noa.registry.registerMaterial('depthstone', {textureURL:"/depthstone.png"}); //darker stone
-noa.registry.registerMaterial('bedrock', {textureURL:"/bedrock.png"});
+noa.registry.registerMaterial('dirt', {textureURL:atlas,atlasIndex:0});
+noa.registry.registerMaterial('grass_block_top', {textureURL:atlas,atlasIndex:1});
+noa.registry.registerMaterial('grass_block_side',{textureURL:atlas,atlasIndex:2});
+noa.registry.registerMaterial('stone', {textureURL:atlas,atlasIndex:3,texHasAlpha:!0}); //stone
+noa.registry.registerMaterial('depthstone', {textureURL:atlas,atlasIndex:4}); //darker stone
+noa.registry.registerMaterial('bedrock', {textureURL:atlas,atlasIndex:5});
 
-noa.registry.registerMaterial('coal_ore', {textureURL:"/coal_ore.png"});
-noa.registry.registerMaterial('iron_ore', {textureURL:"/iron_ore.png"});
-noa.registry.registerMaterial('gold_ore', {textureURL:"/gold_ore.png"});
-noa.registry.registerMaterial('titanium_ore', {textureURL:"/titanium_ore.png"});
-noa.registry.registerMaterial('sapphire_ore', {textureURL:"/sapphire_ore.png"});
-noa.registry.registerMaterial('diamond_ore', {textureURL:"/diamond_ore.png"});
+noa.registry.registerMaterial('coal_ore', {textureURL:atlas,atlasIndex:6});
+noa.registry.registerMaterial('iron_ore', {textureURL:atlas,atlasIndex:7});
+noa.registry.registerMaterial('gold_ore', {textureURL:atlas,atlasIndex:8});
+noa.registry.registerMaterial('titanium_ore', {textureURL:atlas,atlasIndex:9});
+noa.registry.registerMaterial('sapphire_ore', {textureURL:atlas,atlasIndex:10});
+noa.registry.registerMaterial('diamond_ore', {textureURL:atlas,atlasIndex:11});
 
-noa.registry.registerMaterial('depthstone_coal_ore', {textureURL:"/depthstone_coal_ore.png"});
-noa.registry.registerMaterial('depthstone_iron_ore', {textureURL:"/depthstone_iron_ore.png"});
-noa.registry.registerMaterial('depthstone_gold_ore', {textureURL:"/depthstone_gold_ore.png"});
-noa.registry.registerMaterial('depthstone_titanium_ore', {textureURL:"/depthstone_titanium_ore.png"});
-noa.registry.registerMaterial('depthstone_sapphire_ore', {textureURL:"/depthstone_sapphire_ore.png"});
-noa.registry.registerMaterial('depthstone_diamond_ore', {textureURL:"/depthstone_diamond_ore.png"});
-noa.registry.registerMaterial('depthstone_emerald_ore', {textureURL:"/depthstone_emerald_ore.png"});
-noa.registry.registerMaterial('depthstone_adamantine_ore', {textureURL:"/depthstone_adamantine_ore.png"});
+noa.registry.registerMaterial('depthstone_coal_ore', {textureURL:atlas,atlasIndex:14});
+noa.registry.registerMaterial('depthstone_iron_ore', {textureURL:atlas,atlasIndex:15});
+noa.registry.registerMaterial('depthstone_gold_ore', {textureURL:atlas,atlasIndex:16});
+noa.registry.registerMaterial('depthstone_titanium_ore', {textureURL:atlas,atlasIndex:17});
+noa.registry.registerMaterial('depthstone_sapphire_ore', {textureURL:atlas,atlasIndex:18});
+noa.registry.registerMaterial('depthstone_diamond_ore', {textureURL:atlas,atlasIndex:19});
+noa.registry.registerMaterial('depthstone_emerald_ore', {textureURL:atlas,atlasIndex:20});
+noa.registry.registerMaterial('depthstone_adamantine_ore', {textureURL:atlas,atlasIndex:21});
 
-noa.registry.registerMaterial('underworld_rock', {textureURL:"/underworld_rock.png"});
-noa.registry.registerMaterial('underworld_emerald_ore', {textureURL:"/underworld_emerald_ore.png"});
-noa.registry.registerMaterial('underworld_adamantine_ore', {textureURL:"/underworld_adamantine_ore.png"});
+noa.registry.registerMaterial('underworld_rock', {textureURL:atlas,atlasIndex:22});
+noa.registry.registerMaterial('underworld_emerald_ore', {textureURL:atlas,atlasIndex:23});
+noa.registry.registerMaterial('underworld_adamantine_ore', {textureURL:atlas,atlasIndex:24});
 
-noa.registry.registerMaterial('coal_gen', {textureURL:"/coal_ore.png"});
-noa.registry.registerMaterial('iron_gen', {textureURL:"/iron_ore.png"});
-noa.registry.registerMaterial('gold_gen', {textureURL:"/gold_ore.png"});
-noa.registry.registerMaterial('titanium_gen', {textureURL:"/titanium_ore.png"});
-noa.registry.registerMaterial('sapphire_gen', {textureURL:"/sapphire_ore.png"});
-noa.registry.registerMaterial('diamond_gen', {textureURL:"/diamond_ore.png"});
-noa.registry.registerMaterial('emerald_gen', {textureURL:"/emerald_ore.png"});
-noa.registry.registerMaterial('adamantine_gen', {textureURL:"/adamantine_ore.png"});
+noa.registry.registerMaterial('coal_gen', {textureURL:atlas,atlasIndex:6});
+noa.registry.registerMaterial('iron_gen', {textureURL:atlas,atlasIndex:7});
+noa.registry.registerMaterial('gold_gen', {textureURL:atlas,atlasIndex:8});
+noa.registry.registerMaterial('titanium_gen', {textureURL:atlas,atlasIndex:9});
+noa.registry.registerMaterial('sapphire_gen', {textureURL:atlas,atlasIndex:10});
+noa.registry.registerMaterial('diamond_gen', {textureURL:atlas,atlasIndex:11});
+noa.registry.registerMaterial('emerald_gen', {textureURL:atlas,atlasIndex:12});
+noa.registry.registerMaterial('adamantine_gen', {textureURL:atlas,atlasIndex:13});
 
 noa.registry.registerMaterial('water', {color:[0.5,0.75,1,0.5]});
 
-noa.registry.registerMaterial('log_oak', {textureURL:"/log_oak.png"});
-noa.registry.registerMaterial('leaves_oak', {textureURL:"/leaves_oak.png"});
-noa.registry.registerMaterial('leaves_oak_apple', {textureURL:"/leaves_oak_apple.png"});
-noa.registry.registerMaterial('planks_oak', {textureURL:"/planks_oak.png"});
-noa.registry.registerMaterial('log_oak_stripped', {textureURL:"/log_oak_stripped.png"});
+noa.registry.registerMaterial('log_oak_side', {textureURL:atlas,atlasIndex:25});
+noa.registry.registerMaterial('log_oak_top', {textureURL:atlas,atlasIndex:26});
+noa.registry.registerMaterial('leaves_oak', {textureURL:atlas,atlasIndex:27});
+noa.registry.registerMaterial('leaves_oak_apple', {textureURL:atlas,atlasIndex:28});
+noa.registry.registerMaterial('planks_oak', {textureURL:atlas,atlasIndex:29});
+noa.registry.registerMaterial('log_oak_stripped_side', {textureURL:atlas,atlasIndex:30});
+noa.registry.registerMaterial('log_oak_stripped_top', {textureURL:atlas,atlasIndex:31});
+noa.registry.registerMaterial('sapling_oak', {textureURL:atlas,atlasIndex:32});
 
-//sapling
-//sapling
-
-noa.registry.registerMaterial('stone_brick', {textureURL:"/stone_brick.png"});
-noa.registry.registerMaterial('stone_tiles', {textureURL:"/stone_tiles.png"});
-noa.registry.registerMaterial('mini_stone_bricks', {textureURL:"/mini_stone_bricks.png"});
-noa.registry.registerMaterial('depthstone_brick', {textureURL:"/depthstone_brick.png"});
-noa.registry.registerMaterial('depthstone_tiles', {textureURL:"/depthstone_tiles.png"});
-noa.registry.registerMaterial('mini_depthstone_bricks', {textureURL:"/mini_depthstone_bricks.png"});
-noa.registry.registerMaterial('underworld_brick', {textureURL:"/underworld_brick.png"});
-noa.registry.registerMaterial('underworld_tiles', {textureURL:"/underworld_tiles.png"});
-noa.registry.registerMaterial('mini_underworld_bricks', {textureURL:"/mini_underworld_bricks.png"});
-noa.registry.registerMaterial('grass_block_side',{textureURL:"/grass_block_side.png"})
-noa.registry.registerMaterial('dirty_stone',{textureURL:"/dirty_stone.png"})
-noa.registry.registerMaterial('snow_top',{textureURL:"/snow_top.png"})
-noa.registry.registerMaterial('snow_side',{textureURL:"/snow_side.png"})
-noa.registry.registerMaterial('sand',{textureURL:"/sand.png"})
-noa.registry.registerMaterial('sandstone',{textureURL:"/sandstone.png"})
+noa.registry.registerMaterial('stone_brick', {textureURL:atlas,atlasIndex:33});
+noa.registry.registerMaterial('stone_tiles', {textureURL:atlas,atlasIndex:34});
+noa.registry.registerMaterial('mini_stone_bricks', {textureURL:atlas,atlasIndex:35});
+noa.registry.registerMaterial('depthstone_brick', {textureURL:atlas,atlasIndex:36});
+noa.registry.registerMaterial('depthstone_tiles', {textureURL:atlas,atlasIndex:37});
+noa.registry.registerMaterial('mini_depthstone_bricks', {textureURL:atlas,atlasIndex:38});
+noa.registry.registerMaterial('underworld_brick', {textureURL:atlas,atlasIndex:39});
+noa.registry.registerMaterial('underworld_tiles', {textureURL:atlas,atlasIndex:40});
+noa.registry.registerMaterial('mini_underworld_bricks', {textureURL:atlas,atlasIndex:41});
+noa.registry.registerMaterial('dirty_stone',{textureURL:atlas,atlasIndex:42})
+noa.registry.registerMaterial('snow_top',{textureURL:atlas,atlasIndex:43})
+noa.registry.registerMaterial('snow_side',{textureURL:atlas,atlasIndex:44})
+noa.registry.registerMaterial('sand',{textureURL:atlas,atlasIndex:45})
+noa.registry.registerMaterial('sandstone',{textureURL:atlas,atlasIndex:46})
+noa.registry.registerMaterial('sandstone_smooth',{textureURL:atlas,atlasIndex:47})
+noa.registry.registerMaterial('sandstone_cut',{textureURL:atlas,atlasIndex:48})
+noa.registry.registerMaterial('sandstone_carved',{textureURL:atlas,atlasIndex:49})
+noa.registry.registerMaterial('sandstone_brick',{textureURL:atlas,atlasIndex:50})
+noa.registry.registerMaterial('sandstone_tiles',{textureURL:atlas,atlasIndex:51})
+noa.registry.registerMaterial('mini_sandstone_bricks',{textureURL:atlas,atlasIndex:52})
+noa.registry.registerMaterial('jungle_grass_top',{textureURL:atlas,atlasIndex:53})
+noa.registry.registerMaterial('jungle_grass_side',{textureURL:atlas,atlasIndex:54})
 //noa.registry.registerMaterial(name, {textureURL?: string, color?: number[]})
 const BLOCK_TO_ID={
 	air:0,
@@ -484,7 +545,7 @@ const BLOCK_TO_ID={
 	"leaves_oak":33,
 	"leaves_oak_apple":34,
 	"planks_oak": noa.registry.registerBlock(35, {material: 'planks_oak'}),
-	"log_oak_stripped": noa.registry.registerBlock(36, {material: 'log_oak_stripped'}),
+	"log_oak_stripped": noa.registry.registerBlock(36, {material: ['log_oak_stripped_top','log_oak_stripped_side']}),
 	"sapling_oak": noa.registry.registerBlock(37, {
 		material: 'sapling_oak',
 		onSet: (x,y,z)=>{
@@ -509,7 +570,15 @@ const BLOCK_TO_ID={
     "snow_full":50,
 	"snow_half":51,
 	"sand":52,
-	"sandstone":53
+	"sandstone":53,
+	"sandstone_smooth":noa.registry.registerBlock(54, {material: 'sandstone_smooth'}),
+	"sandstone_cut":noa.registry.registerBlock(55, {material: 'sandstone_cut'}),
+	"sandstone_carved":noa.registry.registerBlock(56, {material: 'sandstone_carved'}),
+	"sandstone_brick":noa.registry.registerBlock(57, {material: 'sandstone_brick'}),
+	"sandstone_tiles":noa.registry.registerBlock(58, {material: 'sandstone_tiles'}),
+	"mini_sandstone_bricks":noa.registry.registerBlock(59, {material: 'mini_sandstone_bricks'}),
+	"jungle_grass_block_full":60,
+	"jungle_grass_block_half":61,
 };
 
 const BlockMD={
@@ -533,7 +602,7 @@ let ID_TO_BLOCK=[
 ];
 // block types and their material names
 var dirtID = noa.registry.registerBlock(1, {material: 'dirt'})
-var grass_fullID = noa.registry.registerBlock(2, {material: 'grass_block_top'})
+var grass_block_fullID = noa.registry.registerBlock(2, {material: 'grass_block_top'})
 var stoneID = noa.registry.registerBlock(3, {material: 'stone',opaque:!1})
 var depthstoneID = noa.registry.registerBlock(4, {material: 'depthstone'})
 var bedrockID = noa.registry.registerBlock(5, {material: 'bedrock'})
@@ -554,7 +623,7 @@ let gei={
 
 var waterID=noa.registry.registerBlock(31,{material:"water",fluid:!0,fluidDensity:0.67});
 
-var log_oakID = noa.registry.registerBlock(32, {material: 'log_oak'});
+var log_oakID = noa.registry.registerBlock(32, {material: ['log_oak_top','log_oak_side']});
 var leaves_oakID = noa.registry.registerBlock(33, {material: 'leaves_oak'});
 var leaves_oak_appleID = noa.registry.registerBlock(34, {material: 'leaves_oak_apple'});
 
@@ -568,12 +637,15 @@ var sapling_oak_auto_genID = noa.registry.registerBlock(38, {
 	},
 });
 
-var grass_halfID = noa.registry.registerBlock(48, {material: ['grass_block_top','dirt','grass_block_side']});
+var grass_block_halfID = noa.registry.registerBlock(48, {material: ['grass_block_top','dirt','grass_block_side']});
 var dirty_stoneID = noa.registry.registerBlock(49, {material: 'dirty_stone'});
 var snow_fullID = noa.registry.registerBlock(50, {material: 'snow_top'});
 var snow_halfID = noa.registry.registerBlock(51, {material: ["snow_top","dirt",'snow_side']});
 var sandID = noa.registry.registerBlock(52, {material: 'sand'});
 var sandstoneID = noa.registry.registerBlock(53, {material: 'sandstone'});
+
+var jungle_grass_block_fullID = noa.registry.registerBlock(60, {material: "jungle_grass_block_top"});
+var jungle_grass_block_halfID = noa.registry.registerBlock(61, {material: ['jungle_grass_block_top','dirt','jungle_grass_block_side']});
 const playBlockSound=blockID=>{
 	if(sounds.gravel.includes(blockID)){playAudio(`../hello-world/sounds/gravel${Math.ceil(Math.random()*6)}.mp3`)}
 	if(sounds.stone.includes(blockID)){playAudio(`../hello-world/sounds/stone${Math.ceil(Math.random()*6)}.mp3`)}
@@ -586,6 +658,8 @@ var nameToDisplayNameOverrides={
 	"grass_block_half":"Grass Block (Half)",
 	"snow_full":"Snow Block (Full)",
 	"snow_half":"Snow Block (Half)",
+	"jungle_grass_block_full":"Jungle Grass Block (Full)",
+	"jungle_grass_block_half":"Jungle Grass Block (Half)",
 }
 
 const nameToDisplayName=n=>{
@@ -620,8 +694,8 @@ function getVoxelID(x, y, z,height,data) {
 	if(y>=amount&&y>=-3)return 0;
 	let getTemp=temperature(x/blockScale,z/blockScale);
 	let variation=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
-	let Ybm0=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_fullID:grass_fullID;
-	let Ybm1=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_halfID:grass_halfID;
+	let Ybm0=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_fullID:grass_block_fullID;
+	let Ybm1=getTemp>0.25+variation?sandID:getTemp<-0.25+variation?snow_halfID:grass_block_halfID;
 	let Ybm2=getTemp>0.25+variation?sandID:y>64?dirty_stoneID:dirtID;
 	let Ybm6=getTemp>0.25+variation?sandstoneID:stoneID;
 	for(let I of Object.keys(gens)){
