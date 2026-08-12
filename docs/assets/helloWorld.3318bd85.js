@@ -71,7 +71,6 @@ var opts = {
 	chunkRemoveDistance: 7,
 	playerWidth:0.5,
 	playerHeight:1.8,
-	texturePath:"textures/",
 	blockTestDistance:6,
 	tickRate:20,
 	// See `test` example, or noa docs/source, for more options
