@@ -215,9 +215,9 @@ const evalPerlinWithFBM_ore=(x,y,z,ore,oreScale,oreHeightScaleDiv,oreHeightScale
 	+(perlin3(k,l * 4,m,`${ore??""}${seedNum}`)*(oreHeightScaleDiv/oreHeightScale)/16);
 }
 
-const temperature=(x,z)=>(perlin(x/64,z/64,`temperature${seedNum}`))/Math.sqrt(2);
-const hillyness=(x,z)=>((perlin(x/64,z/64,`hillyness${seedNum}`)/Math.sqrt(2))+0.5)
-const humidity=(x,z)=>(perlin(x/64,z/64,`humidity${seedNum}`))/Math.sqrt(2);
+const temperature=(x,z)=>(perlin(x/32,z/32,`temperature${seedNum}`))/Math.sqrt(2);
+const hillyness=(x,z)=>((perlin(x/32,z/32,`hillyness${seedNum}`)/Math.sqrt(2))+0.5)
+const humidity=(x,z)=>(perlin(x/24,z/24,`humidity${seedNum}`))/Math.sqrt(2);
 
 const shouldBeCaveAir = (x, y, z) => {
 	const sx=1,sy=1,sz=1;
