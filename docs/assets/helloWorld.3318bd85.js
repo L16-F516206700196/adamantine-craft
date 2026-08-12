@@ -261,7 +261,7 @@ const setBlockRect=(x1,y1,z1,x2,y2,z2,b)=>{
 	for(let I=0;I<X;I++){
 		for(let J=0;J<Y;J++){
 			for(let K=0;K<Z;K++){
-				noa.setBlock(b,x1+I,y1+J,z1+K);
+				queuedBlock.push([b,x1+I,y1+J,z1+K]);
 			}
 		}
 	}
@@ -275,7 +275,7 @@ const setBlockRectR=(x1,y1,z1,x2,y2,z2,c,b1,b2)=>{
 		for(let J=0;J<Y;J++){
 			for(let K=0;K<Z;K++){
 				let rn=0.5+(generateHash(`${x1+I},${y1+J},${z1+K}|${seedNum}`)/4294967295);
-				noa.setBlock(rn<c?b1:b2,x1+I,y1+J,z1+K);
+				queuedBlock.push([rn<c?b1:b2,x1+I,y1+J,z1+K]);
 			}
 		}
 	}
@@ -754,8 +754,9 @@ function getVoxelID(x, y, z,height,data) {
 	if (y < amount-1) return y>104?snow_fullID:y>80?stoneID:y>-3?Ybm1:Ybm2;
 	if (y < amount) return y>104?snow_fullID:y>80?stoneID:y>-3?Ybm0:y===-3?sandID:Ybm2;
 	if (y >= amount && y < -3 )return waterID;
-	let treeX=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,x`))*8);
-	let treeZ=Math.round(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`))*8);
+	let treeX=Math.round(8*(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,x`))/4294967295 + 0.5));
+	let treeZ=Math.round(8*(randomS(generateHash(`${Math.floor(x/16)},${Math.floor(y/16)},${Math.floor(z/16)}|sapling_oak,z`))/4294967295 + 0.5));
+	console.log(treeX,treeZ)
 	if(y<amount+1&&Math.floor(x/16)+treeX===x&&Math.floor(z/16)+treeZ===z&&under!==0)return sapling_oak_auto_genID;
 	
 	return /*dirty_stoneID*/0;// signifying empty space
