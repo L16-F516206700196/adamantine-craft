@@ -695,29 +695,29 @@ function getVoxelID(x, y, z,height,data) {
 	let variationTemp=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
 	let variationHumid=(0.0036*randomS(generateHash(`${x},${y},${z}|tempvar`)))-0.0018
 	let Ybm0=
-		getTemp>0.25 + variationTemp
+		getTemp>0.16 + variationTemp
 		? (
-			getHumid > 0.25 
+			getHumid > 0.16 
 			? jungle_grass_block_fullID
 			: sandID
 		)
-		:   getTemp < -0.25 + variationTemp
+		:   getTemp < -0.16 + variationTemp
 			? snow_fullID 
 			: grass_block_fullID;
 	let Ybm1=
-		getTemp > 0.25 + variationTemp
+		getTemp > 0.16 + variationTemp
 		? (
-			getHumid > 0.25 
+			getHumid > 0.16 
 			? jungle_grass_block_halfID
 			: sandID
 		)
-		:   getTemp < -0.25 + variationTemp
+		:   getTemp < -0.16 + variationTemp
 			? snow_halfID
 			: grass_block_halfID;
 	let Ybm2 = 
-		getTemp > 0.25 + variationTemp
+		getTemp > 0.16 + variationTemp
 		? (
-			getHumid > 0.25 
+			getHumid > 0.16 
 			? dirtID
 			: sandID
 		)
@@ -725,9 +725,9 @@ function getVoxelID(x, y, z,height,data) {
 			? dirty_stoneID
 			: dirtID;
 	let Ybm6 = 
-		getTemp > 0.25 + variationTemp
+		getTemp > 0.16 + variationTemp
 		? (
-			getHumid > 0.25 
+			getHumid > 0.16 
 			? stoneID
 			: sandstoneID
 		)
@@ -1009,8 +1009,7 @@ noa.on('tick', function (dt) {
 	let displayCoords=noa.entities.getPosition(g).map(i=>`/ ${Math.round(i*1e2)/1e2} `).join("").slice(1);
 	let [px,py,pz]=noa.entities.getPosition(g).map(i=>Math.floor(i));
 	let displayVel=``;
-	let getHilly=hillyness(px/blockScale,pz/blockScale);
-	let getTemp=temperature(px/blockScale,pz/blockScale);
+	let getHilly=hillyness(px/blockScale,pz/blockScale),getTemp=temperature(px/blockScale,pz/blockScale),getHumid=humidity(px/blockScale,pz/blockScale);
 	fm.velocity.forEach(i => displayVel+=`/ ${Math.round(i*1e4)/1e4} `);
 	displayVel=displayVel.slice(1);
 	/*Coordinates: X/Y/Z ${displayCoords}
@@ -1022,6 +1021,7 @@ noa.on('tick', function (dt) {
 	document.getElementById("debug-speed").innerHTML=`${Math.round(speed*1e4)/1e4} b/s`;
 	document.getElementById("debug-temperature").innerHTML=`TMP: ${Math.round(getTemp*1e4)/1e4}`;
 	document.getElementById("debug-hillyness").innerHTML=`HIL: ${Math.round(getHilly*1e4)/1e4}`;
+	document.getElementById("debug-humidity").innerHTML=`HMD: ${Math.round(getHumid*1e4)/1e4}`;
 	
 	if(queuedBlock.length>0){
 		for(let i=0;i<64;i++){
