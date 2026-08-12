@@ -439,8 +439,8 @@ noa.registry.registerMaterial('sandstone_carved',{textureURL:atlas,atlasIndex:49
 noa.registry.registerMaterial('sandstone_brick',{textureURL:atlas,atlasIndex:50})
 noa.registry.registerMaterial('sandstone_tiles',{textureURL:atlas,atlasIndex:51})
 noa.registry.registerMaterial('mini_sandstone_bricks',{textureURL:atlas,atlasIndex:52})
-noa.registry.registerMaterial('jungle_grass_top',{textureURL:atlas,atlasIndex:53})
-noa.registry.registerMaterial('jungle_grass_side',{textureURL:atlas,atlasIndex:54})
+noa.registry.registerMaterial('jungle_grass_block_top',{textureURL:atlas,atlasIndex:53})
+noa.registry.registerMaterial('jungle_grass_block_side',{textureURL:atlas,atlasIndex:54})
 //noa.registry.registerMaterial(name, {textureURL?: string, color?: number[]})
 const BLOCK_TO_ID={
 	air:0,
@@ -697,7 +697,7 @@ function getVoxelID(x, y, z,height,data) {
 	let Ybm0=
 		getTemp>0.16 + variationTemp
 		? (
-			getHumid > 0.16 
+			getHumid > 0.16 + variationHumid
 			? jungle_grass_block_fullID
 			: sandID
 		)
@@ -707,7 +707,7 @@ function getVoxelID(x, y, z,height,data) {
 	let Ybm1=
 		getTemp > 0.16 + variationTemp
 		? (
-			getHumid > 0.16 
+			getHumid > 0.16 + variationHumid
 			? jungle_grass_block_halfID
 			: sandID
 		)
@@ -717,7 +717,7 @@ function getVoxelID(x, y, z,height,data) {
 	let Ybm2 = 
 		getTemp > 0.16 + variationTemp
 		? (
-			getHumid > 0.16 
+			getHumid > 0.16 + variationHumid
 			? dirtID
 			: sandID
 		)
@@ -727,7 +727,7 @@ function getVoxelID(x, y, z,height,data) {
 	let Ybm6 = 
 		getTemp > 0.16 + variationTemp
 		? (
-			getHumid > 0.16 
+			getHumid > 0.16 + variationHumid
 			? stoneID
 			: sandstoneID
 		)
@@ -979,6 +979,11 @@ noa.inputs.down.on("mounts",()=>{
 	let poh=noa.entities.getPosition(g);
 	console.log(poh);
 	noa.entities.setPosition(g,poh[0]*2,20,809);
+})
+
+noa.inputs.bind("jungle","KeyN");
+noa.inputs.down.on("jungle",()=>{
+	noa.entities.setPosition(g,-861,20,-534);
 })
 
 noa.inputs.bind("minus","KeyB");
